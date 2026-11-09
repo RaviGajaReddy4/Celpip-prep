@@ -1,21 +1,31 @@
 # CELPIP 10+ Prep
 
-A complete study site for CELPIP-General Band 10+ (CLB 10) for Canada PR.
+A complete, general study resource for **any** CELPIP-General candidate aiming for Band 10+ (CLB 10). No sign-up, no personal plan — just the full language banks and grammar.
 
-**Live study site:** Open `index.html` in a browser — single self-contained file, no build step.
+**Use it:** Open `index.html` in a browser — single self-contained file, no build step. Also deployed on Vercel (see repo homepage).
 
-## What's inside
+## What's inside — 2,314 entries
 
-- **167 bank entries**, each with meaning, topic, model example, examiner guidance, and a common-mistake vs correction pair:
-  - 52 topic vocabulary words
-  - 36 phrasal verbs
-  - 25 expressions / idioms
-  - 33 collocations
-  - 21 sentence patterns
-- **Grammar core:** modal verbs, all 12 tenses, conditionals (zero, first, second, third + mixed), 8 punctuation rules, 8 complex-sentence structures — each with classic errors to avoid
-- **Study Plan:** 5-week plan to exam target Dec 12, 2026 (2 hrs/day) + what CLB 10 demands in Listening, Reading, Writing, Speaking
-- **Test Yourself:** 146 flashcards + a 10-question quiz generated from the banks
+Every entry has meaning, topic, a model example, examiner guidance, and a common-mistake vs correction pair:
 
-## How to use
+- **Vocabulary:** 1,086 words across 18 topics
+- **Collocations:** 400
+- **Phrasal verbs:** 347
+- **Expressions / idioms:** 284
+- **Sentence patterns:** 197
 
-Search any word/phrase, filter by topic, flip flashcards daily (10 new phrases/day fits the study plan), and take the quiz to check retention.
+## Grammar core
+
+- Modal verbs
+- All 12 tenses
+- Conditionals (zero, first, second, third + mixed)
+- Punctuation rules
+- Complex-sentence structures
+- What CLB 10 demands in Listening, Reading, Writing and Speaking
+
+## Test Yourself
+
+- 2,117 flashcards drawn from the banks
+- 10-question quiz (meanings + gap-fills) generated from the banks
+
+Banks show 60 entries at a time with "Show more" for fast loading on phones. Search and topic filters work across all banks.
