@@ -2,7 +2,7 @@
 
 A complete, general study resource for **any** CELPIP-General candidate aiming for Band 10+ (CLB 10). No sign-up, no personal plan — just the full language banks and grammar.
 
-**Use it:** Open `index.html` in a browser — single self-contained file, no build step. Also deployed on Vercel (see repo homepage).
+**Use it:** Open `index.html` in a browser — single self-contained file, no build step. To host it free: import this repo at vercel.com/new (no build settings needed) or enable GitHub Pages.
 
 ## What's inside — 2,314 entries
 
