@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>CELPIP 10+ Prep</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650;6..72,800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --paper:#faf6ef; --paper2:#f3ecdf; --card:#fffdf8; --ink:#1d2432; --ink2:#4a5265;
+        --line:#e3d9c6; --red:#c8102e; --red-soft:#fbe9ec; --teal:#0e6b5c; --teal-soft:#e2f2ee;
+        --amber:#9a6206; --amber-soft:#fbf0d7; --wrong:#b3261e; --wrong-soft:#fbeae8;
+        --right:#1e7a34; --right-soft:#e6f4e9; --shadow:0 1px 2px rgba(29,36,50,.06),0 8px 24px -12px rgba(29,36,50,.18);
+        --radius:14px;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --paper:#14161c; --paper2:#1a1d26; --card:#1e222d; --ink:#eef0f5; --ink2:#a9b1c2;
+          --line:#303644; --red:#ff5b74; --red-soft:#3a1e26; --teal:#4cc2ab; --teal-soft:#17332d;
+          --amber:#e0aa4e; --amber-soft:#382d16; --wrong:#ff8a80; --wrong-soft:#3a211f;
+          --right:#7ed491; --right-soft:#1d3323; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;background:var(--paper);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+      .wrap{max-width:1120px;margin:0 auto;padding:0 20px 80px}
+      h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.12;margin:0}
+      a{color:var(--red)}
+      button{font-family:inherit;cursor:pointer}
+
+      /* ---------- header ---------- */
+      .masthead{border-bottom:3px solid var(--ink);padding:34px 0 22px;margin-bottom:0}
+      .kicker{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:600}
+      .masthead h1{font-size:clamp(38px,6vw,58px);font-weight:800;letter-spacing:-.01em;margin:8px 0 10px}
+      .masthead h1 em{font-style:italic;color:var(--red)}
+      .lede{font-size:17px;color:var(--ink2);max-width:640px;margin:0}
+      .target-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+      .target-chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600;box-shadow:var(--shadow)}
+      .target-chip b{color:var(--red)}
+
+      /* ---------- nav ---------- */
+      nav.tabs{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:1px solid var(--line);padding:12px 0 10px;margin-bottom:26px}
+      .tab-row{display:flex;flex-wrap:wrap;gap:8px}
+      .tab{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;transition:border-color .15s,color .15s,background .15s}
+      .tab:hover{border-color:var(--ink2)}
+      .tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+      .tab .n{font-family:"IBM Plex Mono",monospace;font-size:11px;opacity:.65;margin-left:5px}
+
+      /* ---------- sections ---------- */
+      section.panel{display:none}
+      section.panel.show{display:block;animation:fade .25s ease}
+      @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+      @media (prefers-reduced-motion: reduce){section.panel.show{animation:none} html{scroll-behavior:auto}}
+      .sec-head{margin:6px 0 18px}
+      .sec-head h2{font-size:clamp(26px,4vw,36px);font-weight:800}
+      .sec-head p{color:var(--ink2);max-width:680px;margin:8px 0 0}
+
+      /* ---------- toolbar ---------- */
+      .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 16px}
+      .search{flex:1 1 240px;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:9px 13px}
+      .search:focus-within{border-color:var(--red)}
+      .search input{border:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;width:100%;outline:none}
+      .chips{display:flex;flex-wrap:wrap;gap:6px}
+      .chip{border:1px solid var(--line);background:transparent;color:var(--ink2);border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600}
+      .chip.active{background:var(--red);border-color:var(--red);color:#fff}
+      @media (prefers-color-scheme: dark){.chip.active{color:#14161c}}
+      .count-note{font-size:13px;color:var(--ink2);font-family:"IBM Plex Mono",monospace}
+
+      /* ---------- entry cards ---------- */
+      .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+      .entry{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px}
+      .entry-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+      .term{font-family:"Newsreader",Georgia,serif;font-size:23px;font-weight:650}
+      .pos{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink2)}
+      .topic-tag{margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:3px 9px;color:var(--ink2);white-space:nowrap}
+      .def{margin:0;color:var(--ink)}
+      .ex{margin:0;background:var(--teal-soft);border-radius:9px;padding:9px 12px;font-size:14.5px}
+      .ex::before{content:"EXAMPLE  ";font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--teal)}
+      .tip{margin:0;font-size:14px;color:var(--ink2)}
+      .tip::before{content:"GUIDANCE  ";font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--amber)}
+      .fixbox{border-radius:9px;padding:9px 12px;font-size:14px;display:grid;gap:3px}
+      .fixbox.bad{background:var(--wrong-soft)}
+      .fixbox.good{background:var(--right-soft)}
+      .fixbox .lbl{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.1em}
+      .fixbox.bad .lbl{color:var(--wrong)} .fixbox.good .lbl{color:var(--right)}
+      .fixbox s{text-decoration-color:var(--wrong);text-decoration-thickness:1.5px}
+      .empty{border:1.5px dashed var(--line);border-radius:var(--radius);padding:34px;text-align:center;color:var(--ink2)}
+
+      /* ---------- overview ---------- */
+      .plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0 8px}
+      .plan-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+      .plan-card h3{font-size:19px;font-weight:700;margin-bottom:6px}
+      .plan-card .wk{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;color:var(--red);font-weight:600;text-transform:uppercase}
+      .plan-card p{margin:6px 0 0;color:var(--ink2);font-size:14.5px}
+      .daily{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+      .daily div{flex:1 1 150px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+      .daily b{display:block;font-size:20px;font-family:"Newsreader",serif}
+      .daily span{font-size:13px;color:var(--ink2)}
+      .skill-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14.5px}
+      .skill-table th,.skill-table td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+      .skill-table th{background:var(--paper2);font-size:12px;letter-spacing:.07em;text-transform:uppercase}
+      .skill-table tr:last-child td{border-bottom:0}
+      .stack{display:grid;gap:22px}
+      .note-band{background:var(--red-soft);border-radius:var(--radius);padding:16px 18px;font-size:14.5px}
+      .note-band b{color:var(--red)}
+
+      /* ---------- grammar ---------- */
+      .g-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
+      .g-block>h3{font-size:21px;font-weight:700;padding:16px 18px 4px}
+      .g-block>.sub{padding:0 18px 12px;color:var(--ink2);font-size:14.5px;margin:0}
+      .g-table{width:100%;border-collapse:collapse;font-size:14.5px}
+      .g-table th,.g-table td{text-align:left;padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
+      .g-table th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);background:var(--paper2)}
+      .g-table td:first-child{font-weight:700;white-space:nowrap}
+      .g-table .form{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;white-space:normal}
+      .g-table s{color:var(--wrong);text-decoration-thickness:1.5px}
+      .g-table .ok{color:var(--right);font-weight:600}
+      .rules{padding:4px 18px 16px;display:grid;gap:12px}
+      .rule h4{margin:0 0 4px;font-size:15.5px}
+      .rule p{margin:0;color:var(--ink2);font-size:14.5px}
+      .rule .pair{display:grid;gap:4px;margin-top:6px;font-size:14.5px}
+      .scroll-x{overflow-x:auto}
+
+      /* ---------- patterns ---------- */
+      .pattern .term{font-size:19px;font-family:"Public Sans",sans-serif;font-weight:700}
+      .pattern .use{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+
+      /* ---------- quiz ---------- */
+      .quiz-modes{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+      .mode-btn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:10px;padding:11px 20px;font-size:15px;font-weight:700}
+      .mode-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+      @media (prefers-color-scheme: dark){.mode-btn.active{color:#14161c}}
+      .flash{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:34px 26px;text-align:center;min-height:250px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+      .flash .f-term{font-family:"Newsreader",serif;font-size:clamp(28px,5vw,40px);font-weight:800}
+      .flash .f-topic{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.12em;color:var(--red);text-transform:uppercase;font-weight:600}
+      .flash .f-def{font-size:17px;max-width:560px;margin:0 auto}
+      .flash .f-ex{color:var(--ink2);font-style:italic;max-width:560px;margin:0 auto}
+      .quiz-nav{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+      .btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 20px;font-size:14.5px;font-weight:700}
+      .btn.ghost{background:transparent;color:var(--ink)}
+      .btn:disabled{opacity:.4;cursor:default}
+      .mcq{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:26px}
+      .mcq .q-meta{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--ink2);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+      .mcq h3{font-size:22px;font-weight:700;margin:12px 0 4px;font-family:"Public Sans",sans-serif}
+      .mcq .q-sub{color:var(--ink2);margin:0 0 16px}
+      .opts{display:grid;gap:9px}
+      .opt{text-align:left;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:11px;padding:12px 15px;font-size:15px;font-weight:500}
+      .opt:hover:not(:disabled){border-color:var(--ink2)}
+      .opt.correct{border-color:var(--right);background:var(--right-soft)}
+      .opt.wrongpick{border-color:var(--wrong);background:var(--wrong-soft)}
+      .opt:disabled{cursor:default}
+      .feedback{margin-top:14px;font-size:14.5px;border-radius:10px;padding:11px 14px;display:none}
+      .feedback.show{display:block}
+      .feedback.good{background:var(--right-soft)} .feedback.bad{background:var(--wrong-soft)}
+      .score-line{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink2);margin-top:14px;text-align:center}
+      footer{border-top:1px solid var(--line);margin-top:44px;padding-top:16px;color:var(--ink2);font-size:13.5px}
+      @media (max-width:560px){
+        .grid{grid-template-columns:1fr}
+        .g-table td:first-child{white-space:normal}
+        .masthead{padding-top:24px}
+      }
+      /* Phone: grammar and skill tables stack into readable blocks instead of squeezing columns */
+      @media (max-width:640px){
+        .g-table tr:first-child,.skill-table tr:first-child{display:none}
+        .g-table tr,.skill-table tr{display:block;border-top:1px solid var(--line);padding:6px 0}
+        .g-table tr:first-of-type,.skill-table tr:first-of-type{border-top:0}
+        .g-table td,.skill-table td{display:block;border-top:0;padding:3px 14px}
+        .g-table td:first-child{font-size:15.5px;padding-top:8px}
+        .skill-table td:first-child{font-size:15.5px;padding-top:8px}
+        .g-block .scroll-x,.stack .scroll-x{overflow-x:visible}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <div class="kicker">CELPIP General · Target CLB 10 in all four skills</div>
+        <h1>The road to <em>10+</em>, word by word.</h1>
+        <p class="lede">A study bank of the highest-value language for a band-10 score: topic vocabulary, phrasal verbs, expressions, collocations and sentence patterns — every entry with its meaning, a model example, guidance on how examiners reward it, and the mistake that quietly costs marks. Plus the grammar core: modal verbs, all twelve tenses, conditionals, punctuation and complex sentences.</p>
+        <div class="target-row">
+          <span class="target-chip">Exam window <b>Dec 5–19, 2026</b></span>
+          <span class="target-chip">Target date <b>Dec 12</b></span>
+          <span class="target-chip">Daily study <b>2 hours</b></span>
+          <span class="target-chip">Goal <b>Listening · Reading · Writing · Speaking = 10</b></span>
+        </div>
+      </header>
+
+      <nav class="tabs" aria-label="Sections">
+        <div class="tab-row" id="tabRow"></div>
+      </nav>
+
+      <!-- OVERVIEW -->
+      <section class="panel" id="panel-plan">
+        <div class="sec-head">
+          <h2>Your five-week plan</h2>
+          <p>Two focused hours a day, built around one main skill and one supporting skill. The language banks on this page feed every session: pull ten new items into the day's writing and speaking, and recycle yesterday's ten before you start.</p>
+        </div>
+        <div class="daily">
+          <div><b>60 min</b><span>Main skill of the day — full task practice</span></div>
+          <div><b>40 min</b><span>Second skill + corrections from yesterday</span></div>
+          <div><b>20 min</b><span>Speaking recording — listen back, note errors</span></div>
+          <div><b>10 phrases</b><span>New items from the banks below, used aloud</span></div>
+        </div>
+        <div class="plan-grid">
+          <div class="plan-card"><div class="wk">Week 1 · Nov 7–14</div><h3>Diagnostic + templates</h3><p>Take Diagnostic Test 1, learn the exam pattern cold, and lock in response templates for every Writing and Speaking task type.</p></div>
+          <div class="plan-card"><div class="wk">Weeks 2–3 · Nov 15–28</div><h3>Skill rotation</h3><p>Rotate the four skills daily. Build range: topic vocabulary, collocations and complex sentences in every written and spoken answer.</p></div>
+          <div class="plan-card"><div class="wk">Week 4 · Nov 29–Dec 5</div><h3>Timed sections</h3><p>Every practice under real exam timing. Finish with Full Mock 1 on Dec 5 and a written error log of every mistake type.</p></div>
+          <div class="plan-card"><div class="wk">Week 5 · Dec 6–12</div><h3>Mocks + taper</h3><p>Full Mocks 2 and 3 early in the week, light review after, exam on Dec 12. No new material in the final 48 hours — recycle and rest.</p></div>
+        </div>
+        <div class="stack" style="margin-top:26px">
+          <div>
+            <h3 style="font-size:21px;margin-bottom:10px">What CLB 10 actually demands</h3>
+            <div class="scroll-x"><table class="skill-table">
+              <tr><th>Skill</th><th>Format</th><th>What a 10 looks like</th></tr>
+              <tr><td><b>Listening</b></td><td>~47–55 min · 6 parts, everyday + workplace scenarios</td><td>Catching implied meaning, attitude and detail in fast, natural speech — not just the main idea.</td></tr>
+              <tr><td><b>Reading</b></td><td>~55–60 min · 4 parts, correspondence to viewpoints</td><td>Reading between the lines: tone, purpose and opinion, handled at speed without re-reading everything.</td></tr>
+              <tr><td><b>Writing</b></td><td>53–60 min · email (150–200 words) + survey response (150–200 words)</td><td>Clear organisation, varied sentence structures, precise vocabulary, correct register — and almost no errors.</td></tr>
+              <tr><td><b>Speaking</b></td><td>15–20 min · 8 tasks, recorded responses</td><td>Fluent, well-developed answers with natural collocations, a range of tenses and conditionals, and ideas extended with reasons and examples.</td></tr>
+            </table></div>
+          </div>
+          <div class="note-band"><b>How to use this page:</b> don't read the banks like a novel. Pick a topic, learn eight to ten entries properly — say each example aloud, then write your own sentence — and drop them into that day's practice task. Ten items a day, recycled, beats a hundred skimmed once.</div>
+        </div>
+      </section>
+
+      <!-- BANK PANELS (rendered by JS) -->
+      <section class="panel" id="panel-vocab"></section>
+      <section class="panel" id="panel-phrasal"></section>
+      <section class="panel" id="panel-expressions"></section>
+      <section class="panel" id="panel-collocations"></section>
+      <section class="panel" id="panel-patterns"></section>
+
+      <!-- GRAMMAR -->
+      <section class="panel" id="panel-grammar">
+        <div class="sec-head">
+          <h2>Grammar core</h2>
+          <p>Band 10 is not about exotic grammar — it is about using a wide range accurately. Master these five areas and your Writing and Speaking stop leaking marks: modal verbs, the twelve tenses, conditionals, punctuation, and complex sentences.</p>
+        </div>
+        <div id="grammarBody"></div>
+      </section>
+
+      <!-- QUIZ -->
+      <section class="panel" id="panel-quiz">
+        <div class="sec-head">
+          <h2>Test yourself</h2>
+          <p>Two drills built from the same banks. Flashcards for quick recall before a study session; the quiz mixes meaning checks, gap-fills and mistake-spotting — the three ways weak vocabulary shows up in the exam.</p>
+        </div>
+        <div class="quiz-modes">
+          <button class="mode-btn active" id="modeFlash">Flashcards</button>
+          <button class="mode-btn" id="modeMcq">Quiz — 10 questions</button>
+        </div>
+        <div id="flashZone"></div>
+        <div id="mcqZone" style="display:none"></div>
+      </section>
+
+      <footer>Built for one goal: CELPIP 10 in Listening, Reading, Writing and Speaking. Content is a study snapshot — work through it daily, and let your mock-test error log decide what to revisit.</footer>
+    </div>
+
+    <script>
+    /* ================= DATA ================= */
+    var VOCAB = [
+      {w:"meticulous",pos:"adjective",topic:"Work & Career",def:"Very careful and precise; paying great attention to detail.",ex:"She is meticulous about checking every figure before the report goes to the client.",tip:"A favourite of examiners in Speaking Task 7 (describing a person) and workplace emails — it signals precision without sounding exaggerated.",wrong:"He is meticulous in his works.",right:"He is meticulous in his work. (“Work” is uncountable here.)"},
+      {w:"collaborate",pos:"verb",topic:"Work & Career",def:"To work jointly with others on a task or project.",ex:"Our team collaborated with the design department to launch the app two weeks early.",tip:"Stronger and more professional than “work together”. Pair it with “closely”: collaborate closely with.",wrong:"We collaborated together on the project.",right:"We collaborated on the project. (“Collaborate” already means working together.)"},
+      {w:"feasible",pos:"adjective",topic:"Work & Career",def:"Possible and practical to achieve.",ex:"It is not feasible to finish the renovation by Friday, so we asked for an extension.",tip:"Perfect for survey responses when rejecting an option politely: “While X sounds attractive, it is not feasible because…”",wrong:"It is feasible to can finish early.",right:"It is feasible to finish early."},
+      {w:"prioritise",pos:"verb",topic:"Work & Career",def:"To decide what is most important and deal with it first.",ex:"When the workload doubled, she learned to prioritise urgent tasks over routine ones.",tip:"Canadian spelling uses -ise or -ize; both are accepted. Consistency matters more than the choice.",wrong:"We must prioritise on the urgent tasks.",right:"We must prioritise the urgent tasks. (No preposition.)"},
+      {w:"initiative",pos:"noun",topic:"Work & Career",def:"The ability to act independently and start things without being told.",ex:"He showed real initiative by reorganising the filing system before anyone asked.",tip:"Use the collocation “take the initiative” or “show initiative” in Speaking tasks about colleagues and leaders.",wrong:"She took an initiative to solve the problem herselfs.",right:"She took the initiative to solve the problem herself."},
+      {w:"workload",pos:"noun",topic:"Work & Career",def:"The amount of work a person has to do.",ex:"With two employees on leave, the remaining staff faced an unmanageable workload.",tip:"Common collocations: heavy / light / unmanageable workload; manage / reduce / share the workload.",wrong:"My workload is very much these days.",right:"My workload is very heavy these days."},
+      {w:"sustainable",pos:"adjective",topic:"Environment",def:"Able to continue over time without harming the environment or using up resources.",ex:"The city invested in sustainable transport, adding bike lanes and electric buses.",tip:"One of the most frequent environment words in CELPIP. Collocations: sustainable development, sustainable practices, environmentally sustainable.",wrong:"We need more sustainable of energy sources.",right:"We need more sustainable energy sources."},
+      {w:"emissions",pos:"noun (plural)",topic:"Environment",def:"Gases or other substances released into the air, especially harmful ones.",ex:"Stricter rules on factory emissions have noticeably improved air quality downtown.",tip:"Almost always plural and paired with carbon: carbon emissions; reduce / cut emissions.",wrong:"The government wants to reduce carbon emission.",right:"The government wants to reduce carbon emissions."},
+      {w:"conserve",pos:"verb",topic:"Environment",def:"To protect something from harm or waste; to use carefully.",ex:"Residents were asked to conserve water during the summer drought.",tip:"Don't confuse with “preserve” (keep unchanged) — conserve is about careful use of resources like water and energy.",wrong:"We should conserve the water wastage.",right:"We should conserve water and avoid wastage."},
+      {w:"renewable",pos:"adjective",topic:"Environment",def:"(Of energy) from sources that never run out, like sun, wind or water.",ex:"Solar and wind are renewable, unlike coal, which will eventually run out.",tip:"The natural partner of “energy” and “resources”. Opposite: non-renewable / fossil fuels.",wrong:"Solar is a renewable energy source which never finish.",right:"Solar is a renewable energy source that never runs out."},
+      {w:"deteriorate",pos:"verb",topic:"Environment",def:"To become progressively worse.",ex:"Air quality continues to deteriorate as traffic congestion grows.",tip:"Works for the environment, health, relationships and buildings — a versatile formal verb for cause-and-effect writing.",wrong:"His health deteriorated day by day gradually.",right:"His health gradually deteriorated. (Avoid doubling “day by day” and “gradually”.)"},
+      {w:"landfill",pos:"noun",topic:"Environment",def:"A site where waste is buried in the ground.",ex:"Recycling programs have diverted thousands of tonnes of waste from landfill.",tip:"Useful verb partners: divert from landfill, end up in landfill, reduce landfill waste.",wrong:"Most of the garbage goes to the landfills sites.",right:"Most of the garbage goes to landfill sites."},
+      {w:"cutting-edge",pos:"adjective",topic:"Technology",def:"The most advanced and innovative stage of development.",ex:"The hospital uses cutting-edge equipment to diagnose diseases earlier than ever.",tip:"Hyphenated before a noun. A high-value upgrade from “modern” or “latest” in essays about technology.",wrong:"This is a cutting edge technology.",right:"This is cutting-edge technology. (Hyphenate when it comes before the noun.)"},
+      {w:"streamline",pos:"verb",topic:"Technology",def:"To make a process simpler and more efficient.",ex:"The new software streamlined the application process, cutting waiting times in half.",tip:"Ideal for workplace topics: streamline operations / procedures / workflows.",wrong:"The app streamlined our work more faster.",right:"The app streamlined our work and made it faster."},
+      {w:"automate",pos:"verb",topic:"Technology",def:"To make a process operate by machine or computer, without human action.",ex:"The factory automated its packaging line, and staff were retrained for quality control.",tip:"In opinion tasks, balance it: automation raises efficiency but can displace workers — examiners reward two-sided answers.",wrong:"Many works are automated by machines nowadays.",right:"Many jobs are automated by machines nowadays. (“Work” is uncountable; use “jobs” or “tasks”.)"},
+      {w:"outdated",pos:"adjective",topic:"Technology",def:"Old-fashioned or no longer useful because something newer exists.",ex:"The office still relies on outdated software that crashes at least once a week.",tip:"A precise alternative to “very old” for technology, methods and rules. Similar: obsolete (stronger), antiquated (very formal).",wrong:"This system is outdated already from long time.",right:"This system has been outdated for a long time."},
+      {w:"user-friendly",pos:"adjective",topic:"Technology",def:"Easy for ordinary people to use or understand.",ex:"The banking app is so user-friendly that even my grandmother learned it in a day.",tip:"Hyphenate before nouns. Useful in product descriptions (Speaking Task 3) and recommendation emails.",wrong:"The website is very user friendly for the old peoples.",right:"The website is very user-friendly for elderly people."},
+      {w:"sedentary",pos:"adjective",topic:"Health",def:"Involving little physical activity; sitting for long periods.",ex:"A sedentary lifestyle is linked to obesity, diabetes and heart disease.",tip:"Almost always in the phrase “sedentary lifestyle / job”. Pronounced SED-en-tree — practise it for Speaking.",wrong:"People who sit all day live a sedentary life style mostly.",right:"People who sit all day mostly lead a sedentary lifestyle. (“Lifestyle” is one word.)"},
+      {w:"nutritious",pos:"adjective",topic:"Health",def:"(Of food) containing substances the body needs to stay healthy.",ex:"School cafeterias should serve nutritious meals instead of processed snacks.",tip:"Don't confuse with “nutrient” (noun: a substance in food). A nutritious diet is rich in nutrients.",wrong:"Vegetables are very nutrition for children.",right:"Vegetables are very nutritious for children."},
+      {w:"chronic",pos:"adjective",topic:"Health",def:"(Of an illness) lasting a long time and difficult to cure.",ex:"Chronic back pain forced him to switch to a standing desk.",tip:"Partners: chronic disease / condition / pain / stress. Contrast with “acute” (sudden and severe).",wrong:"She suffers from a chronic disease since childhood.",right:"She has suffered from a chronic disease since childhood. (Present perfect with “since”.)"},
+      {w:"well-being",pos:"noun",topic:"Health",def:"A person's health, happiness and comfort.",ex:"Regular exercise improves both physical and mental well-being.",tip:"Hyphenated, uncountable. Strong in conclusions: “…, which ultimately improves people's well-being.”",wrong:"Yoga is good for our well being and healths.",right:"Yoga is good for our well-being and health. (“Health” is uncountable.)"},
+      {w:"fatigue",pos:"noun",topic:"Health",def:"Extreme tiredness, usually from work or illness.",ex:"Driving while suffering from fatigue can be as dangerous as driving drunk.",tip:"More formal than “tiredness” — a good Writing upgrade. Verb partner: suffer from / combat fatigue.",wrong:"After the long shift, I felt a lot of fatigue in my body.",right:"After the long shift, I was suffering from fatigue."},
+      {w:"curriculum",pos:"noun",topic:"Education",def:"The subjects taught in a school or course.",ex:"The new curriculum includes financial literacy from Grade 9 onwards.",tip:"Plural is curricula or curriculums. Collocations: school curriculum, design / follow a curriculum.",wrong:"The school curriculums is very heavy for kids.",right:"The school curriculum is very heavy for children."},
+      {w:"tuition",pos:"noun",topic:"Education",def:"Money paid for teaching, especially at a college or university.",ex:"Rising tuition fees have left many graduates with heavy student debt.",tip:"In Canada, “tuition fees” is the standard phrase. Uncountable — never “tuitions”.",wrong:"The tuitions of universities are increasing every year.",right:"University tuition fees are increasing every year."},
+      {w:"scholarship",pos:"noun",topic:"Education",def:"Money given to a student to help pay for their education.",ex:"She won a scholarship that covered her entire first year of tuition.",tip:"Verb partners: win / receive / be awarded a scholarship; apply for a scholarship.",wrong:"He got scholarship from the government for study.",right:"He received a scholarship from the government for his studies."},
+      {w:"literacy",pos:"noun",topic:"Education",def:"The ability to read and write; knowledge of a particular subject.",ex:"Digital literacy is now as essential as reading and writing.",tip:"Expandable: financial literacy, computer literacy, media literacy — handy across many essay topics.",wrong:"Literacy rate of the country is improving slowly slowly.",right:"The country's literacy rate is improving steadily."},
+      {w:"enrol",pos:"verb",topic:"Education",def:"To officially register for a course or program. (Canadian spelling: enrol; US: enroll.)",ex:"She enrolled in a part-time course to improve her French.",tip:"Pattern: enrol in / on a course. CELPIP is Canadian — “enrol” and other Canadian spellings (organise, centre) fit its context.",wrong:"I enrolled the course last week.",right:"I enrolled in the course last week."},
+      {w:"diverse",pos:"adjective",topic:"Society & Community",def:"Including many different types of people or things.",ex:"Toronto is one of the most diverse cities in the world, with over 200 ethnic groups.",tip:"Canada topics appear constantly in CELPIP. Collocations: culturally diverse, diverse community / background / range.",wrong:"Canada is a diverse country with peoples from everywhere.",right:"Canada is a diverse country with people from all over the world. (“People” is already plural.)"},
+      {w:"accommodate",pos:"verb",topic:"Society & Community",def:"To provide space or make changes so someone's needs are met.",ex:"The hall can accommodate up to 300 guests for the community festival.",tip:"Two uses: space (the room accommodates 50) and needs (accommodate dietary requirements). Double c, double m — a classic spelling trap.",wrong:"The hotel can accomodate two hundred peoples.",right:"The hotel can accommodate two hundred people."},
+      {w:"infrastructure",pos:"noun",topic:"Society & Community",def:"Basic public systems a place needs: roads, transit, water, power, internet.",ex:"The town's infrastructure — roads, schools and hospitals — has not kept pace with its growth.",tip:"Uncountable. Collocations: improve / invest in / crumbling infrastructure.",wrong:"The infrastructures of the city are very old.",right:"The city's infrastructure is very old."},
+      {w:"affordable",pos:"adjective",topic:"Society & Community",def:"Cheap enough that ordinary people can pay for it.",ex:"Young families are leaving the city because housing is no longer affordable.",tip:"Key phrase in Canadian-topic essays: affordable housing. More precise than “cheap”, which can sound low-quality.",wrong:"Rents in Vancouver are not affordable for the most of people.",right:"Rents in Vancouver are not affordable for most people."},
+      {w:"volunteer",pos:"noun / verb",topic:"Society & Community",def:"A person who works without pay; to offer to do something without pay.",ex:"She volunteers at the food bank every Saturday morning.",tip:"“Volunteer” works as both noun and verb: volunteer at / for an organisation. Warm, community topics score well in Speaking.",wrong:"He is doing volunteer in the hospital.",right:"He volunteers at the hospital. / He does volunteer work at the hospital."},
+      {w:"budget",pos:"noun / verb",topic:"Money",def:"A plan for how to spend money; the amount available to spend.",ex:"We set a strict budget for the wedding and tracked every expense in a spreadsheet.",tip:"Collocations: stick to a budget, on a tight budget, budget for something. Central word for money topics.",wrong:"We should budget our money spendings carefully.",right:"We should budget our spending carefully. (“Spending” is uncountable.)"},
+      {w:"expense",pos:"noun",topic:"Money",def:"An amount of money spent on something.",ex:"Travel is the biggest expense when you study abroad.",tip:"Usual plural: expenses (living expenses, daily expenses). Don't confuse with “expensive” (adjective).",wrong:"Living in Toronto is very expense.",right:"Living in Toronto is very expensive. / The expenses are high."},
+      {w:"purchase",pos:"verb / noun",topic:"Money",def:"To buy something (formal); something that is bought.",ex:"Customers can purchase tickets online or at the door.",tip:"The formal upgrade of “buy” for Writing Task 1 emails and complaints: “I purchased this laptop on March 3.”",wrong:"I purchased it before two days.",right:"I purchased it two days ago."},
+      {w:"warranty",pos:"noun",topic:"Money",def:"A written promise by a company to repair or replace a product within a set period.",ex:"The phone comes with a two-year warranty, so the repair was free.",tip:"Complaint emails love this word: under warranty, extend the warranty, void the warranty.",wrong:"The product is in warranty period so repair is free of cost.",right:"The product is under warranty, so the repair is free."},
+      {w:"refund",pos:"noun / verb",topic:"Money",def:"Money returned to you because you are not satisfied with a purchase.",ex:"The store refused to give me a refund because I had lost the receipt.",tip:"Collocations: full refund, ask for / demand / receive a refund. Core word for complaint emails (Writing Task 1).",wrong:"I want refund for this defective item please.",right:"I would like a refund for this defective item, please."},
+      {w:"promotion",pos:"noun",topic:"Work & Career",def:"A move to a higher position with more responsibility and pay.",ex:"After three years as an analyst, she finally got a promotion to team leader.",tip:"Patterns: get / receive a promotion; be promoted to (a role). Workplace Listening runs on this word.",wrong:"He got promoted as a manager last month.",right:"He was promoted to manager last month."},
+      {w:"resign",pos:"verb",topic:"Work & Career",def:"To formally leave a job, usually by letter or email.",ex:"He decided to resign after the company refused flexible hours.",tip:"Formal twin of “quit”. Pattern: resign from a post; hand in your resignation (noun).",wrong:"She resigned her job yesterday.",right:"She resigned from her job yesterday."},
+      {w:"commute",pos:"noun / verb",topic:"Daily Life",def:"The regular journey between home and work.",ex:"His daily commute takes ninety minutes each way, so he is looking for a job closer to home.",tip:"A CELPIP evergreen: long commutes, commute time, commuter. Central to transport and housing answers.",wrong:"My commuting time is very long from home to office.",right:"My commute from home to the office is very long."},
+      {w:"congestion",pos:"noun",topic:"Society & Community",def:"Overcrowding that blocks movement, especially traffic.",ex:"Congestion in the downtown core costs the city millions in lost productivity.",tip:"Uncountable. Pairs: traffic congestion, ease / reduce congestion, congestion charges.",wrong:"There is a huge congestion in roads at evenings.",right:"There is severe congestion on the roads in the evenings."},
+      {w:"convenient",pos:"adjective",topic:"Daily Life",def:"Easy to use or reach; suiting your plans and needs.",ex:"Living near the station is convenient because I don't own a car.",tip:"Pattern: convenient for (someone) / to + verb. Its noun twin “convenience” powers phrases like at your convenience.",wrong:"This location is convenient to go anywhere.",right:"This location is convenient for getting anywhere."},
+      {w:"itinerary",pos:"noun",topic:"Travel",def:"A detailed plan of a journey, listing places and times.",ex:"Our itinerary includes two days in Banff and a day trip to Lake Louise.",tip:"Pronounced eye-TIN-er-air-ee — practise it; travel tasks (Speaking Task 7) use it often.",wrong:"We planned the itinerary of our trip in advance fully detailed.",right:"We planned a detailed itinerary for our trip in advance."},
+      {w:"accommodation",pos:"noun",topic:"Travel",def:"A place where you live or stay, such as a hotel or apartment.",ex:"The conference fee includes accommodation and all meals.",tip:"Uncountable in British/Canadian English — never “accommodations are” in formal writing, and never “an accommodation”.",wrong:"We booked an accommodation near the beach.",right:"We booked accommodation near the beach."},
+      {w:"destination",pos:"noun",topic:"Travel",def:"The place a person or thing is going to.",ex:"Vancouver is a popular destination for international students.",tip:"Partners: holiday / tourist / final destination; reach your destination.",wrong:"We reached to our destination at midnight.",right:"We reached our destination at midnight. (No “to”.)"},
+      {w:"symptom",pos:"noun",topic:"Health",def:"A sign or feeling that shows you may have an illness.",ex:"A persistent cough is often the first symptom of the infection.",tip:"Partners: show / experience / relieve symptoms. Listening health dialogues repeat it constantly.",wrong:"He has symptoms of flu since Monday.",right:"He has had symptoms of flu since Monday."},
+      {w:"treatment",pos:"noun",topic:"Health",def:"Medical care given to a patient for an illness or injury.",ex:"Early treatment greatly improves the chances of a full recovery.",tip:"Patterns: receive / undergo treatment; treatment for (a condition). Uncountable in general use.",wrong:"She is taking treatment for her back pain in the clinic.",right:"She is receiving treatment for her back pain at the clinic."},
+      {w:"recover",pos:"verb",topic:"Health",def:"To return to normal health or strength after an illness or difficulty.",ex:"It took him six weeks to recover fully from the surgery.",tip:"Pattern: recover from + illness/event. The noun “recovery” fits formal writing: make a full recovery.",wrong:"She recovered from her illness very fastly.",right:"She recovered from her illness very quickly."},
+      {w:"assignment",pos:"noun",topic:"Education",def:"A task or piece of work given to a student or employee.",ex:"The professor extended the assignment deadline by two days.",tip:"Partners: submit / complete / hand in an assignment. Countable — “an assignment, two assignments”.",wrong:"I have many homeworks and assignment this week.",right:"I have a lot of homework and an assignment this week. (“Homework” is uncountable.)"},
+      {w:"bargain",pos:"noun",topic:"Money",def:"Something bought at a lower price than its real value.",ex:"The sofa was a real bargain — half price in the winter sale.",tip:"Also a verb in negotiation contexts: bargain with a seller. Speaking shopping answers love it.",wrong:"I got a good bargain price for the phone.",right:"I got the phone at a bargain price."},
+      {w:"heritage",pos:"noun",topic:"Society & Community",def:"The traditions, achievements and culture passed down from earlier generations.",ex:"The festival celebrates the city's rich cultural heritage.",tip:"Uncountable. Partners: cultural / national heritage, heritage site. Canada's multicultural topics invite it.",wrong:"We should protect our heritages and cultures.",right:"We should protect our heritage and culture."},
+      {w:"habitat",pos:"noun",topic:"Environment",def:"The natural home or environment of an animal or plant.",ex:"Deforestation is destroying the natural habitat of thousands of species.",tip:"Partners: natural habitat, destroy / protect habitats, habitat loss — a core environment-essay phrase.",wrong:"Many animals are losing their habitats place.",right:"Many animals are losing their natural habitats."}
+    ];
+
+    var PHRASAL = [
+      {w:"bring up",pos:"phrasal verb",topic:"Work & Career",def:"To start talking about a topic; also, to raise a child.",ex:"She brought up the scheduling problem at Monday's meeting.",tip:"In meetings and emails, “bring up a concern / an issue” sounds professional. Separable: bring it up.",wrong:"He brought up the issue in the meeting yesterday's.",right:"He brought up the issue at yesterday's meeting."},
+      {w:"carry out",pos:"phrasal verb",topic:"Work & Career",def:"To do or complete a task, plan or research.",ex:"The university carried out a survey of 2,000 recent graduates.",tip:"The formal choice for research and official tasks: carry out research / an inspection / repairs.",wrong:"The survey was carried out by researchers team.",right:"The survey was carried out by the research team."},
+      {w:"come up with",pos:"phrasal verb",topic:"Work & Career",def:"To think of an idea, plan or solution.",ex:"After hours of discussion, the team came up with a brilliant marketing plan.",tip:"Three-word phrasal verb — keep all three parts. Perfect for problem-solving Speaking tasks.",wrong:"She came up a solution quickly.",right:"She came up with a solution quickly."},
+      {w:"take on",pos:"phrasal verb",topic:"Work & Career",def:"To accept a task or responsibility; to hire someone.",ex:"He took on extra shifts to save money for the course.",tip:"Two meanings — accept work (take on a project) and employ (take on staff). Both appear in workplace listening.",wrong:"I cannot take on more works right now.",right:"I cannot take on more work right now."},
+      {w:"hand in",pos:"phrasal verb",topic:"Education",def:"To submit work to a teacher or authority.",ex:"All assignments must be handed in by Friday noon.",tip:"British/Canadian “hand in” = American “turn in”. Both are understood in CELPIP.",wrong:"She handed in her assignment lately.",right:"She handed in her assignment late. (“Late” = after the time; “lately” = recently.)"},
+      {w:"cut down on",pos:"phrasal verb",topic:"Health",def:"To reduce the amount of something, especially something unhealthy.",ex:"The doctor advised him to cut down on sugar and fried food.",tip:"For habits and spending: cut down on caffeine / expenses. Stronger total stop = “cut out”.",wrong:"I am trying to cut down my sugar intake on.",right:"I am trying to cut down on my sugar intake."},
+      {w:"get over",pos:"phrasal verb",topic:"Health",def:"To recover from an illness, shock or disappointment.",ex:"It took her months to get over the flu — and the breakup.",tip:"Works for illness and emotional setbacks. In Listening, speakers use it casually: “I'm still getting over a cold.”",wrong:"He got over from his illness quickly.",right:"He got over his illness quickly. (No “from”.)"},
+      {w:"work out",pos:"phrasal verb",topic:"Health",def:"To exercise; also, to find a solution or result.",ex:"She works out at the gym three times a week to stay fit.",tip:"Double meaning is a Listening trap: “It'll work out” usually means “the problem will resolve”, not exercise.",wrong:"I work out in gym daily morning.",right:"I work out at the gym every morning."},
+      {w:"put off",pos:"phrasal verb",topic:"Daily Life",def:"To delay something to a later time.",ex:"We had to put off the picnic because of the rain.",tip:"Follow with a gerund: put off doing something. Also “postpone” is its formal twin for Writing.",wrong:"Don't put off to do your homework.",right:"Don't put off doing your homework."},
+      {w:"run out of",pos:"phrasal verb",topic:"Daily Life",def:"To use all of something so none is left.",ex:"Halfway through the trip, we ran out of petrol in the middle of nowhere.",tip:"Subject is the user, not the item: “We ran out of milk” (not “the milk ran out of us”).",wrong:"The milk has run out of in the fridge.",right:"We have run out of milk."},
+      {w:"look forward to",pos:"phrasal verb",topic:"Daily Life",def:"To feel pleased about something that is going to happen.",ex:"I look forward to hearing from you soon.",tip:"The classic email closing — and a grammar trap: after “to” use a gerund (hearing), never the base verb.",wrong:"I look forward to hear from you.",right:"I look forward to hearing from you."},
+      {w:"get along with",pos:"phrasal verb",topic:"Daily Life",def:"To have a friendly relationship with someone.",ex:"She gets along well with all her colleagues.",tip:"Ideal for Speaking tasks about friends, family and neighbours. Also “get on with” (British).",wrong:"I get along with my sister very good.",right:"I get along with my sister very well."},
+      {w:"look into",pos:"phrasal verb",topic:"Work & Career",def:"To investigate or examine something carefully.",ex:"The manager promised to look into my complaint about the billing error.",tip:"A polite power phrase for complaint emails: “Could you please look into this matter?”",wrong:"We will look into about the problem.",right:"We will look into the problem. (No “about”.)"},
+      {w:"figure out",pos:"phrasal verb",topic:"Daily Life",def:"To understand or solve something after thinking.",ex:"I finally figured out how to use the new accounting software.",tip:"More natural in speech than “solve”. Listening speakers say “figure out” constantly.",wrong:"I can't figure out it.",right:"I can't figure it out. (Pronoun goes in the middle.)"},
+      {w:"deal with",pos:"phrasal verb",topic:"Work & Career",def:"To handle a problem, task or difficult person.",ex:"Part of her job is dealing with customer complaints calmly.",tip:"Follow with gerunds for activities: dealing with complaints / stress / pressure.",wrong:"He knows how to deal the difficult customers.",right:"He knows how to deal with difficult customers."},
+      {w:"give up",pos:"phrasal verb",topic:"Health",def:"To stop doing something, especially a habit; to quit.",ex:"He gave up smoking after his daughter was born.",tip:"Follow with a gerund: give up smoking / drinking. In motivational speaking answers: “never give up”.",wrong:"She gave up to smoke last year.",right:"She gave up smoking last year."},
+      {w:"keep up with",pos:"phrasal verb",topic:"Technology",def:"To stay at the same level or speed as something changing.",ex:"Technology changes so fast that it's hard to keep up with the latest trends.",tip:"Also for people: keep up with classmates / the news / payments. Three parts, all required.",wrong:"It's hard to keep up the new technology.",right:"It's hard to keep up with new technology."},
+      {w:"set up",pos:"phrasal verb",topic:"Technology",def:"To arrange or install something so it is ready to use; to start a business.",ex:"It took an hour to set up my new laptop and transfer the files.",tip:"Noun form is written together: a setup. Verb: set up an account / a meeting / a company.",wrong:"I need to set up my account informations.",right:"I need to set up my account information. (Uncountable.)"},
+      {w:"break down",pos:"phrasal verb",topic:"Technology",def:"(Of a machine or vehicle) to stop working; to lose emotional control.",ex:"Our car broke down on the highway, two hours from the nearest town.",tip:"Listening favourite for travel stories. A breakdown (noun) is the event.",wrong:"The machine broke down yesterday night suddenly.",right:"The machine suddenly broke down last night."},
+      {w:"end up",pos:"phrasal verb",topic:"Daily Life",def:"To finally be in a situation or place, often unexpectedly.",ex:"We missed the train and ended up taking a taxi all the way home.",tip:"Follow with a gerund: ended up taking / staying / paying. Great for storytelling in Speaking Task 5.",wrong:"We ended up to stay at home.",right:"We ended up staying at home."},
+      {w:"find out",pos:"phrasal verb",topic:"Daily Life",def:"To discover information.",ex:"I only found out about the schedule change this morning.",tip:"Pattern: find out about + noun; find out that / wh- + clause. More spoken than “discover”.",wrong:"I found out the truth yesterday from him about.",right:"I found out the truth from him yesterday."},
+      {w:"take up",pos:"phrasal verb",topic:"Daily Life",def:"To start a hobby or activity; to occupy space or time.",ex:"After moving to Canada, she took up ice skating.",tip:"Two uses: take up a hobby, and “the sofa takes up too much space”. Both are CELPIP-friendly.",wrong:"He took up play guitar last summer.",right:"He took up playing the guitar last summer."},
+      {w:"turn down",pos:"phrasal verb",topic:"Work & Career",def:"To refuse an offer or request; to reduce volume or heat.",ex:"She turned down the job offer because the commute was too long.",tip:"Polite-refusal tasks (Speaking Task 7/8) use it often: turn down an invitation / a proposal.",wrong:"He turned down of the offer politely.",right:"He turned down the offer politely."},
+      {w:"call off",pos:"phrasal verb",topic:"Daily Life",def:"To cancel something that was planned.",ex:"The outdoor concert was called off due to the thunderstorm.",tip:"Formal twin: cancel. In passive it sounds natural: “the match was called off”.",wrong:"They called off the meeting because manager absent.",right:"They called off the meeting because the manager was absent."},
+      {w:"go ahead",pos:"phrasal verb",topic:"Daily Life",def:"To proceed; to give permission to proceed.",ex:"The city decided to go ahead with the new community centre.",tip:"As permission it's warm and spoken: “Go ahead, I'm listening.” With plans: go ahead with something.",wrong:"We will go ahead the construction next month.",right:"We will go ahead with the construction next month."},
+      {w:"sort out",pos:"phrasal verb",topic:"Daily Life",def:"To organise or resolve a problem or mess.",ex:"It took all weekend to sort out the paperwork for the visa application.",tip:"British/Canadian favourite covering both tidying and problem-solving: sort out the bills / the misunderstanding.",wrong:"Let me sort out this problems first.",right:"Let me sort out these problems first."},
+      {w:"point out",pos:"phrasal verb",topic:"Education",def:"To draw attention to a fact or mistake.",ex:"The teacher pointed out that most errors came from weak punctuation.",tip:"Pattern: point out that + clause. Polite correction phrase for feedback and discussion tasks.",wrong:"She pointed out me my mistake.",right:"She pointed out my mistake to me."},
+      {w:"take advantage of",pos:"phrasal verb",topic:"Society & Community",def:"To use an opportunity well; (negative) to exploit someone unfairly.",ex:"Students should take advantage of the free workshops at the library.",tip:"Positive in study contexts (opportunities), negative with people (taking advantage of tourists). Examiners notice the distinction.",wrong:"We took advantage from the discount offer.",right:"We took advantage of the discount offer."},
+      {w:"look after",pos:"phrasal verb",topic:"Daily Life",def:"To take care of someone or something.",ex:"While we were on holiday, our neighbour looked after the cat.",tip:"The everyday equivalent of “take care of”. In Speaking family answers it sounds warm and natural.",wrong:"She looks after of her grandmother.",right:"She looks after her grandmother. (No “of”.)"},
+      {w:"come across",pos:"phrasal verb",topic:"Daily Life",def:"To find or meet something or someone by chance.",ex:"I came across an old photograph while cleaning the attic.",tip:"Also describes impressions: “He comes across as confident” — how someone appears to others.",wrong:"I came across with an interesting article.",right:"I came across an interesting article."},
+      {w:"get rid of",pos:"phrasal verb",topic:"Daily Life",def:"To remove or throw away something unwanted.",ex:"We finally got rid of the old sofa and bought a smaller one.",tip:"Three-word verb for clutter, habits and problems: get rid of old files / a bad habit.",wrong:"I want to get rid from these old clothes.",right:"I want to get rid of these old clothes."},
+      {w:"check in",pos:"phrasal verb",topic:"Travel",def:"To register your arrival at a hotel, airport or event.",ex:"We checked in at the hotel just after noon.",tip:"Noun/adjective written with a hyphen: check-in time, online check-in. Travel Listening staple.",wrong:"We checked in the hotel at 2 pm.",right:"We checked in at the hotel at 2 pm."},
+      {w:"drop off",pos:"phrasal verb",topic:"Daily Life",def:"To take someone or something to a place and leave them there.",ex:"He drops the kids off at school on his way to work.",tip:"Separable: drop them off. Opposite errand: pick up. School-run stories use both.",wrong:"I will drop off you at the station.",right:"I will drop you off at the station."},
+      {w:"fill out",pos:"phrasal verb",topic:"Work & Career",def:"To complete a form by writing information in the spaces.",ex:"Please fill out the application form and attach a recent photo.",tip:"Canadian usage accepts fill out and fill in for forms. Official contexts also say “complete the form”.",wrong:"Fill out in the form with a black pen.",right:"Fill out the form with a black pen."},
+      {w:"show up",pos:"phrasal verb",topic:"Daily Life",def:"To arrive or appear, especially when expected.",ex:"Only half the guests showed up because of the snowstorm.",tip:"Informal twin of “arrive/attend”. Listening dialogues prefer it: “He didn't show up.”",wrong:"He didn't show up to the meeting on yesterday.",right:"He didn't show up to the meeting yesterday."},
+      {w:"rely on",pos:"phrasal verb",topic:"Society & Community",def:"To depend on someone or something for help or support.",ex:"Many seniors rely on public transit because they no longer drive.",tip:"Pattern: rely on + noun; rely on someone to + verb. Noun: reliance; adjective: reliable.",wrong:"We rely in technology too much nowadays.",right:"We rely on technology too much nowadays."}
+    ];
+
+    var EXPRESSIONS = [
+      {w:"in the long run",pos:"expression",topic:"General",def:"Over a long period of time; in the end, considering all effects.",ex:"Studying a little every day pays off in the long run.",tip:"A natural conclusion phrase for essays: short-term pain, long-term gain. Pair with “in the short term” for contrast.",wrong:"In long run, practice makes perfect.",right:"In the long run, practice makes perfect. (Keep “the”.)"},
+      {w:"a blessing in disguise",pos:"idiom",topic:"General",def:"Something that seems bad but turns out to be good.",ex:"Losing that job was a blessing in disguise — it pushed me to start my own business.",tip:"Superb for Speaking Task 5 (a difficult experience) — it gives your story a reflective, mature ending.",wrong:"Failing the exam was a blessing in disguise for him to study more.",right:"Failing the exam was a blessing in disguise: it forced him to study seriously."},
+      {w:"under the weather",pos:"idiom",topic:"Health",def:"Feeling slightly ill.",ex:"I won't be at the office today — I'm feeling a bit under the weather.",tip:"The natural way to mention minor illness in emails and Listening dialogues. Never for serious disease.",wrong:"He is under weather since two days.",right:"He has been under the weather for two days."},
+      {w:"hit the books",pos:"idiom",topic:"Education",def:"To start studying seriously.",ex:"The exam is in three weeks, so it's time to hit the books.",tip:"Informal — great for Speaking, risky in a formal email. Register awareness is itself a band-10 skill.",wrong:"I need to hit books for tomorrow test.",right:"I need to hit the books for tomorrow's test."},
+      {w:"break the ice",pos:"idiom",topic:"Society & Community",def:"To ease initial social awkwardness so people start talking.",ex:"The team played a short game to break the ice at the start of the workshop.",tip:"Fits community, workplace and party topics. The noun form: an icebreaker activity.",wrong:"The game helped to break ice between the new students.",right:"The game helped to break the ice between the new students."},
+      {w:"cost an arm and a leg",pos:"idiom",topic:"Money",def:"To be extremely expensive.",ex:"Repairing the car cost an arm and a leg, so now I take the bus.",tip:"Vivid for Speaking; in Writing prefer “prohibitively expensive” — knowing which register fits is the real skill.",wrong:"The rent in downtown costs arm and leg.",right:"The rent downtown costs an arm and a leg."},
+      {w:"make ends meet",pos:"idiom",topic:"Money",def:"To earn just enough money to pay for basic needs.",ex:"With prices rising, many families struggle to make ends meet.",tip:"A mature collocation for cost-of-living essays — far stronger than “people don't have money”.",wrong:"It is hard to make the ends meet with low salary.",right:"It is hard to make ends meet on a low salary."},
+      {w:"easier said than done",pos:"idiom",topic:"General",def:"Easy to suggest, but hard to actually do.",ex:"Quitting sugar sounds simple, but it's easier said than done.",tip:"A ready-made concession sentence for opinion writing: acknowledge advice, then question its practicality.",wrong:"Saving money is easy said than do.",right:"Saving money is easier said than done."},
+      {w:"get the hang of",pos:"idiom",topic:"Education",def:"To learn how to do something after practice.",ex:"The software looks complicated, but you'll get the hang of it in a week.",tip:"Warm, encouraging phrase for advice emails and Speaking Task 2 (giving advice).",wrong:"He got hang of driving very fastly.",right:"He got the hang of driving very quickly."},
+      {w:"once in a blue moon",pos:"idiom",topic:"Daily Life",def:"Very rarely.",ex:"We eat out only once in a blue moon — home cooking is healthier and cheaper.",tip:"A colour idiom examiners enjoy in Speaking because it shows range. Don't overuse idioms; one or two per answer is plenty.",wrong:"I meet my cousins once in blue moon.",right:"I meet my cousins once in a blue moon."},
+      {w:"a win-win situation",pos:"expression",topic:"Work & Career",def:"An arrangement where everyone involved benefits.",ex:"Carpooling is a win-win situation: it saves money and reduces traffic.",tip:"Clinches recommendation arguments in survey responses: benefit for residents AND the city.",wrong:"This plan is win-win situation for all.",right:"This plan is a win-win situation for everyone."},
+      {w:"keep an eye on",pos:"idiom",topic:"Daily Life",def:"To watch or monitor something carefully.",ex:"Could you keep an eye on my luggage while I buy the tickets?",tip:"Everyday requests in Listening use it constantly. Also: keep an eye on expenses / the children.",wrong:"Please keep eye on the baby while I cook.",right:"Please keep an eye on the baby while I cook."},
+      {w:"second nature",pos:"expression",topic:"Education",def:"Something you do naturally and without thinking, after much practice.",ex:"After ten years of driving, checking the mirrors is second nature to her.",tip:"Beautiful for language-learning conclusions: “With daily practice, speaking English becomes second nature.”",wrong:"Typing is a second nature for him now.",right:"Typing is second nature to him now."},
+      {w:"from my perspective",pos:"expression",topic:"General",def:"A formal way to introduce your own viewpoint.",ex:"From my perspective, remote work improves both productivity and family life.",tip:"A band-10 opinion opener — more sophisticated than “in my opinion” every time. Rotate: “As I see it”, “In my view”.",wrong:"From my perspective side, online classes are better.",right:"From my perspective, online classes are better."},
+      {w:"it goes without saying",pos:"expression",topic:"General",def:"It is obvious and does not need to be stated.",ex:"It goes without saying that regular practice is the key to fluency.",tip:"Use once per essay, for a genuinely obvious point — it adds a confident, native rhythm.",wrong:"It is goes without saying that health is wealth.",right:"It goes without saying that health is wealth."},
+      {w:"at the end of the day",pos:"idiom",topic:"General",def:"When everything is considered; ultimately.",ex:"At the end of the day, what matters is that the whole family is healthy.",tip:"A spoken-style conclusion marker. In formal writing, “ultimately” or “in conclusion” may fit better.",wrong:"At end of the day, family comes first.",right:"At the end of the day, family comes first."},
+      {w:"in hot water",pos:"idiom",topic:"Work & Career",def:"In trouble because of something you did.",ex:"He landed in hot water after missing the client's deadline twice.",tip:"Storytelling gold for Speaking narratives about mistakes and lessons learned.",wrong:"She is in hot waters with her manager.",right:"She is in hot water with her manager. (“Water” stays singular.)"},
+      {w:"the ball is in your court",pos:"idiom",topic:"Work & Career",def:"It is now your turn to act or decide.",ex:"I've sent all the documents — now the ball is in their court.",tip:"Business-flavoured idiom from tennis. Use in negotiation and workplace contexts, not formal letters.",wrong:"I have done my part, now ball is in your court.",right:"I have done my part; now the ball is in your court."},
+      {w:"a piece of cake",pos:"idiom",topic:"Daily Life",def:"Something very easy to do.",ex:"After a month of practice, the driving test was a piece of cake.",tip:"Informal and cheerful — perfect for Speaking, out of place in a complaint email. Register again.",wrong:"The interview was piece of cake for her.",right:"The interview was a piece of cake for her."},
+      {w:"food for thought",pos:"idiom",topic:"General",def:"Something that makes you think deeply about an issue.",ex:"The documentary gave us plenty of food for thought about food waste.",tip:"A graceful closer for opinion answers: “This report certainly provides food for thought.”",wrong:"His speech was a food for thought for everyone.",right:"His speech gave everyone food for thought."},
+      {w:"in this day and age",pos:"expression",topic:"General",def:"In the present time; in modern life.",ex:"In this day and age, basic computer skills are essential for almost every job.",tip:"A classic essay opener for technology and society topics — but use it once; it is a recognised cliché if repeated.",wrong:"In these day and age, people use phones for everything.",right:"In this day and age, people use phones for everything."},
+      {w:"just around the corner",pos:"idiom",topic:"Daily Life",def:"Very near — in place, or soon in time.",ex:"The grocery store is just around the corner from our building.",tip:"Double use: physical nearness and coming events (“the deadline is just around the corner”).",wrong:"The festival is just around corner next week.",right:"The festival is just around the corner."},
+      {w:"a matter of time",pos:"expression",topic:"General",def:"Something that will certainly happen eventually.",ex:"With this much practice, reaching band 10 is only a matter of time.",tip:"Frame: “It is only a matter of time before + clause.” Confident and natural in predictions.",wrong:"It is a matter of the time before she succeeds.",right:"It is only a matter of time before she succeeds."},
+      {w:"on the safe side",pos:"expression",topic:"Daily Life",def:"Being extra careful to avoid risk or problems.",ex:"Let's leave an hour early, just to be on the safe side.",tip:"Full frame: “to be on the safe side, …”. Practical-advice answers (Speaking Task 2) use it naturally.",wrong:"To be in safe side, carry an umbrella.",right:"To be on the safe side, carry an umbrella."},
+      {w:"in the meantime",pos:"expression",topic:"General",def:"During the period of time between two events.",ex:"The hall is booked for June; in the meantime, we will rehearse at school.",tip:"A linking phrase examiners like because it manages time inside a narrative — keep it mid-story, not as a conclusion.",wrong:"In the mean time, I will finish my course.",right:"In the meantime, I will finish my course. (“Meantime” is one word here.)"}
+    ];
+
+    var COLLOCATIONS = [
+      {w:"make a decision",pos:"collocation",topic:"General",def:"Decide — English uses “make”, not “take” or “do”, with decision in most contexts.",ex:"We need more information before we make a decision.",tip:"Also “reach a decision”. “Take a decision” exists in British English but “make” is safest.",wrong:"We took a decision to move to Calgary.",right:"We made a decision to move to Calgary."},
+      {w:"make progress",pos:"collocation",topic:"Education",def:"Improve or advance toward a goal.",ex:"She has made remarkable progress in French this semester.",tip:"Adjectives that fit: rapid / steady / remarkable / significant progress. Progress is uncountable.",wrong:"I am making good progresses in English.",right:"I am making good progress in English."},
+      {w:"do research",pos:"collocation",topic:"Education",def:"Study a subject carefully to discover facts.",ex:"Students must do thorough research before writing the report.",tip:"“Research” is uncountable — never “a research” or “researches”. A single study is “a study” or “a piece of research”.",wrong:"He did a research on climate change.",right:"He did research on climate change. / He carried out a study on climate change."},
+      {w:"take responsibility",pos:"collocation",topic:"Work & Career",def:"Accept that something is your duty or your fault.",ex:"A good leader takes responsibility when things go wrong.",tip:"Pattern: take responsibility for + noun/gerund. High-value phrase for leadership and apology contexts.",wrong:"Managers should take responsibilities of their team.",right:"Managers should take responsibility for their team."},
+      {w:"pay attention",pos:"collocation",topic:"Education",def:"Listen or watch carefully.",ex:"Drivers must pay close attention to road signs in winter.",tip:"Fits “pay”, not “give” or “put”. Strengthen it: pay close / careful attention to.",wrong:"Please give attention to the instructions.",right:"Please pay attention to the instructions."},
+      {w:"meet a deadline",pos:"collocation",topic:"Work & Career",def:"Finish something by the agreed time.",ex:"The team worked overtime to meet the deadline.",tip:"Opposite: miss a deadline. Related: set / extend / a tight deadline.",wrong:"We must complete the deadline by Friday.",right:"We must meet the deadline on Friday."},
+      {w:"heavy traffic",pos:"collocation",topic:"Daily Life",def:"Many vehicles on the road; congestion.",ex:"We were stuck in heavy traffic for almost an hour.",tip:"Traffic is uncountable and takes “heavy / light”, never “big”. “Traffic jam” names the standstill itself.",wrong:"There was a huge traffic on the highway today.",right:"There was heavy traffic on the highway today."},
+      {w:"strong coffee",pos:"collocation",topic:"Daily Life",def:"Coffee with a powerful, concentrated flavour.",ex:"He drinks strong coffee every morning to wake up.",tip:"A classic collocation trap: drinks are “strong/weak”, not “powerful”. Food flavours behave the same way.",wrong:"I like powerful coffee in the morning.",right:"I like strong coffee in the morning."},
+      {w:"raise awareness",pos:"collocation",topic:"Society & Community",def:"Increase public knowledge of an issue.",ex:"The campaign aims to raise awareness about mental health.",tip:"Pattern: raise awareness of / about + issue. Central phrase for charity, health and environment writing.",wrong:"We should raise the awareness of people about recycling.",right:"We should raise awareness about recycling."},
+      {w:"pose a risk",pos:"collocation",topic:"Health",def:"Create a danger or threat.",ex:"Smoking poses a serious risk to heart health.",tip:"Partners: pose a risk / threat / danger / problem. Formal and precise — ideal for essays.",wrong:"Polluted water makes a risk to health.",right:"Polluted water poses a risk to health."},
+      {w:"play a role",pos:"collocation",topic:"Society & Community",def:"Have an effect or be involved in something.",ex:"Parents play a vital role in a child's education.",tip:"Boosters: play a key / crucial / vital / major role in. Never “do a role”.",wrong:"Technology does an important role in education.",right:"Technology plays an important role in education."},
+      {w:"take into account",pos:"collocation",topic:"General",def:"Consider something before judging or deciding.",ex:"When choosing a home, you should take schools and transit into account.",tip:"Also “take into consideration”. A band-10 decision-making phrase for survey responses.",wrong:"We must take in account the cost of living.",right:"We must take the cost of living into account."},
+      {w:"make an effort",pos:"collocation",topic:"General",def:"Try hard to do something.",ex:"If you make an effort to speak English daily, fluency will follow.",tip:"Pattern: make an effort to + verb. Contrast “make a mistake”, “make money” — “make” dominates effort-and-result nouns.",wrong:"She did a lot of effort to pass the exam.",right:"She made a great effort to pass the exam."},
+      {w:"gain experience",pos:"collocation",topic:"Work & Career",def:"Get practical knowledge by doing something.",ex:"The internship helped him gain valuable experience in marketing.",tip:"Experience (uncountable) = knowledge from doing. “An experience” (countable) = a single event. Mixing them is a classic error.",wrong:"I gained many experiences from my first job.",right:"I gained valuable experience from my first job."},
+      {w:"achieve a goal",pos:"collocation",topic:"General",def:"Successfully reach an aim you set.",ex:"With careful planning, she achieved her goal of buying a house.",tip:"Verbs for goals: set / achieve / reach / accomplish. Goals are not “completed” or “won”.",wrong:"He finally won his goal after years of trying.",right:"He finally achieved his goal after years of trying."},
+      {w:"overcome obstacles",pos:"collocation",topic:"General",def:"Succeed in dealing with problems that block progress.",ex:"She overcame many obstacles to finish her degree while working full-time.",tip:"Also overcome challenges / difficulties / fear. Perfect verb for resilience stories in Speaking.",wrong:"We must overcome from the obstacles in life.",right:"We must overcome the obstacles in life. (No “from”.)"},
+      {w:"broaden horizons",pos:"collocation",topic:"Education",def:"Expand your knowledge, experience and view of the world.",ex:"Travelling abroad broadens your horizons like nothing else.",tip:"Also “broaden your mind / perspective”. A polished phrase for travel and study-abroad topics.",wrong:"Reading broadens our horizon knowledge.",right:"Reading broadens our horizons."},
+      {w:"spend time / money",pos:"collocation",topic:"Money",def:"Use time or money on something — English says “spend”, not “waste” or “pass”, for neutral use.",ex:"They spent a fortune on the renovation.",tip:"Trap: “waste time” is only negative. And money is spent ON things: spend money on books.",wrong:"I wasted two hours for studying yesterday.",right:"I spent two hours studying yesterday. (“Wasted” would mean the time was useless.)"},
+      {w:"deeply concerned",pos:"collocation",topic:"Society & Community",def:"Very worried about something.",ex:"Residents are deeply concerned about the new highway proposal.",tip:"Adverb partners matter: deeply concerned / grateful / sorry; highly recommended / unlikely; strongly oppose / believe.",wrong:"We are very much deeply concern about safety.",right:"We are deeply concerned about safety."},
+      {w:"widely available",pos:"collocation",topic:"Technology",def:"Easy to obtain in many places.",ex:"Free language apps are now widely available to anyone with a phone.",tip:"“Widely” partners: widely available / used / known / accepted / believed. A quiet mark of natural English.",wrong:"Internet is widely availability in cities.",right:"The internet is widely available in cities."},
+      {w:"closely related",pos:"collocation",topic:"General",def:"Strongly connected to something.",ex:"Diet is closely related to long-term health outcomes.",tip:"Also closely linked / connected / associated with. Use it to build cause-effect chains in essays.",wrong:"Health and happiness are close related.",right:"Health and happiness are closely related."},
+      {w:"catch up with",pos:"collocation",topic:"Daily Life",def:"Meet someone and learn their news; also reach the level of others.",ex:"Let's meet for coffee and catch up with each other this weekend.",tip:"Social meaning dominates Listening conversations. Study meaning: catch up with the class after an absence.",wrong:"We caught up with each others after long time.",right:"We caught up with each other after a long time."},
+      {w:"draw a conclusion",pos:"collocation",topic:"Education",def:"Reach a judgement after considering all the facts.",ex:"From the survey results, we can draw the conclusion that most residents support the plan.",tip:"Essay-finaliser: “In light of this evidence, we can draw the conclusion that…”",wrong:"We made the conclusion from the data collected.",right:"We drew a conclusion from the data collected."},
+      {w:"make sense",pos:"collocation",topic:"General",def:"Be logical or understandable.",ex:"It makes sense to save money while you are young.",tip:"Patterns: it makes sense to…; that makes sense; make sense of something (understand it).",wrong:"Your explanation is making a sense to me.",right:"Your explanation makes sense to me. (No article.)"},
+      {w:"take a break",pos:"collocation",topic:"Daily Life",def:"Stop an activity briefly to rest.",ex:"After two hours of studying, take a short break and stretch.",tip:"Breaks of all kinds take “take”: take a break / a rest / a nap / a day off.",wrong:"Let us do a break for ten minutes.",right:"Let us take a break for ten minutes."},
+      {w:"take place",pos:"collocation",topic:"Society & Community",def:"Happen or occur (for planned events).",ex:"The ceremony will take place in the main hall on Saturday.",tip:"Events take place; they are not “helded”. For unplanned events use “happen” or “occur”.",wrong:"The meeting will take place on tomorrow morning.",right:"The meeting will take place tomorrow morning."},
+      {w:"make a living",pos:"collocation",topic:"Work & Career",def:"Earn enough money to live on.",ex:"Many artists struggle to make a living from their work alone.",tip:"Frame: make a living as / by doing something. More idiomatic than “earn for life”.",wrong:"He makes his living by drive a taxi.",right:"He makes a living by driving a taxi."},
+      {w:"give a presentation",pos:"collocation",topic:"Work & Career",def:"Present information formally to an audience.",ex:"Each student must give a short presentation on Friday.",tip:"Presentations are given, not “done” or “said”. Slides are “shown”. CELPIP Speaking Task structure mirrors it.",wrong:"I have to do a presentation in front of class.",right:"I have to give a presentation in front of the class."},
+      {w:"have access to",pos:"collocation",topic:"Technology",def:"Be able to use or reach something.",ex:"Thanks to the library card, students have access to thousands of e-books.",tip:"Pattern: have access to + noun. Never “access to” as a verb phrase with an article missing.",wrong:"Everyone should have an access to the internet.",right:"Everyone should have access to the internet."},
+      {w:"run a business",pos:"collocation",topic:"Work & Career",def:"Manage and operate a company.",ex:"Running a small business requires both skill and patience.",tip:"Businesses are run or managed, not “done”. Also: start up / set up a business.",wrong:"She is doing a small business from home.",right:"She runs a small business from home."},
+      {w:"save time",pos:"collocation",topic:"Technology",def:"Use less time than usual because of a method or tool.",ex:"Online banking saves time compared with visiting a branch.",tip:"Pair of opposites examiners love: save time / waste time, spend time (neutral). Use the right one deliberately.",wrong:"This machine saves our times a lot.",right:"This machine saves us a lot of time."},
+      {w:"strongly recommend",pos:"collocation",topic:"General",def:"Advise something with confidence and emphasis.",ex:"I strongly recommend booking the tickets at least a month in advance.",tip:"Recommendation emails live on this: strongly / highly recommend. Pattern: recommend + gerund, or recommend that + clause.",wrong:"I strongly recommend you to book early.",right:"I strongly recommend booking early. / I strongly recommend that you book early."},
+      {w:"meet the requirements",pos:"collocation",topic:"Education",def:"Satisfy the official conditions for something.",ex:"Your application meets all the requirements for the scholarship.",tip:"Requirements are met or fulfilled, not “completed”. Twin phrase: meet the criteria / the deadline.",wrong:"You must fill all requirements for the visa.",right:"You must meet all the requirements for the visa."}
+    ];
+
+    var PATTERNS = [
+      {w:"It is widely believed that + clause",pos:"opinion opener",topic:"Writing",def:"Introduces a common public opinion before you agree, qualify or challenge it.",ex:"It is widely believed that technology has made people less social.",tip:"Follow by taking your own position in the next sentence — examiners reward the turn: “However, I would argue that…”",wrong:"It is widely believed that people is becoming lazy.",right:"It is widely believed that people are becoming lazy."},
+      {w:"Not only … but also …",pos:"addition & emphasis",topic:"Writing · Speaking",def:"Adds a second, stronger point to the first, with emphasis.",ex:"The new library will not only offer books but also provide free computer classes.",tip:"Keep the two halves parallel: verb phrase with verb phrase, noun with noun. Inversion version: “Not only did it save money, but it also saved time.”",wrong:"Not only he is a good singer, but also a dancer.",right:"He is not only a good singer but also a talented dancer."},
+      {w:"The main reason for this is that …",pos:"giving reasons",topic:"Writing · Speaking",def:"Signals your chief justification clearly in opinion and survey answers.",ex:"I support the proposal. The main reason for this is that it will create jobs for local youth.",tip:"Survey responses (Writing Task 2) score on clear position + developed reasons. One reason, fully explained, beats three listed.",wrong:"The main reason for this is because it saves money.",right:"The main reason for this is that it saves money. (“Reason … because” repeats the meaning.)"},
+      {w:"There is no denying that …",pos:"strong agreement",topic:"Writing",def:"States a fact you present as impossible to argue against.",ex:"There is no denying that regular exercise improves quality of life.",tip:"Use it once, for your strongest point. Overuse makes it sound empty.",wrong:"There is no deny that practice is important.",right:"There is no denying that practice is important."},
+      {w:"Having considered both sides, I …",pos:"balanced conclusion",topic:"Writing",def:"Closes a discuss-both-views answer by landing on your position.",ex:"Having considered both sides, I believe the benefits of remote work outweigh the drawbacks.",tip:"A participle opener like this instantly signals complex sentence control to the examiner.",wrong:"Having considered both sides, so I choose the first option.",right:"Having considered both sides, I choose the first option. (No “so” after a participle clause.)"},
+      {w:"I am writing to express my concern about …",pos:"formal email opener",topic:"Writing Task 1",def:"Opens a complaint or concern email with the correct formal register.",ex:"I am writing to express my concern about the frequent power cuts in our neighbourhood.",tip:"State the purpose in sentence one, facts in the middle, and the action you want at the end. End: “I look forward to your prompt response.”",wrong:"I am writing for express my concern regarding to the noise.",right:"I am writing to express my concern about the noise."},
+      {w:"If I were in your position, I would …",pos:"giving advice",topic:"Speaking · Writing",def:"Second conditional used to give tactful, personal advice.",ex:"If I were in your position, I would talk to the manager before resigning.",tip:"“Were” for all persons in this pattern — “if I were you” is the most tested conditional phrase in English.",wrong:"If I was you, I will accept the offer.",right:"If I were you, I would accept the offer."},
+      {w:"The sooner …, the better …",pos:"comparative pattern",topic:"Speaking · Writing",def:"Links two changes: as one increases, so does the other.",ex:"The sooner the city repairs the bridge, the better it will be for commuters.",tip:"Full frame: “The + comparative …, the + comparative …” — The more you practise, the more confident you become.",wrong:"More you practise, more you improve.",right:"The more you practise, the more you improve."},
+      {w:"What I find most … is …",pos:"cleft sentence",topic:"Speaking",def:"Reorganises a sentence to spotlight the part you care about.",ex:"What I find most frustrating is the lack of parking near the hospital.",tip:"Cleft sentences are a hallmark of band-10 speaking — they buy thinking time and add emphasis naturally.",wrong:"What I find most difficult is to speak in public places' audience.",right:"What I find most difficult is speaking in public."},
+      {w:"Whether … or … depends on …",pos:"balanced view",topic:"Writing · Speaking",def:"Shows a decision rests on conditions, not absolutes.",ex:"Whether online learning is effective or not depends on the student's discipline.",tip:"Nuance wins marks in viewpoint questions. Pair with “on the one hand … on the other hand”.",wrong:"Whether it is good or bad depends from the situation.",right:"Whether it is good or bad depends on the situation."},
+      {w:"Provided that …, …",pos:"condition",topic:"Writing",def:"Formal alternative to “if”, meaning “only if this condition is met”.",ex:"Provided that the rent stays the same, we are happy to renew the lease.",tip:"Also: providing that, as long as, on condition that. Rotate them to show range in formal emails.",wrong:"Provided that you will pay on time, I agree.",right:"Provided that you pay on time, I agree. (Present simple after condition words.)"},
+      {w:"It is high time + past tense",pos:"urging action",topic:"Speaking · Writing",def:"Says something should have been done already; the past tense is a fixed part of the pattern.",ex:"It is high time the government addressed the housing shortage.",tip:"The verb looks past but the meaning is present urgency — a subtle pattern examiners notice.",wrong:"It is high time to the council fix the roads.",right:"It is high time the council fixed the roads."},
+      {w:"… is expected to …",pos:"reporting / passive",topic:"Writing",def:"Reports predictions or official expectations without naming who says so.",ex:"The new transit line is expected to reduce traffic by twenty percent.",tip:"The passive reporting frame (is believed / reported / expected to) adds formal variety to news-style writing.",wrong:"The prices are expected to will rise next year.",right:"Prices are expected to rise next year."},
+      {w:"By the time …, … had already …",pos:"sequence of events",topic:"Speaking · Writing",def:"Places one completed past event before another using the past perfect.",ex:"By the time we reached the station, the train had already left.",tip:"Storytelling tasks come alive with this frame — it proves past perfect control, not just past simple chains.",wrong:"By the time we reached, the bus already left yesterday.",right:"By the time we reached the stop, the bus had already left."},
+      {w:"Rarely / Never + inversion",pos:"emphasis",topic:"Writing",def:"Starting with a negative adverb inverts subject and auxiliary for dramatic emphasis.",ex:"Never have I seen such a dedicated team in all my years here.",tip:"Use sparingly — one inverted sentence per essay is powerful; five is theatre. Needs: adverb + auxiliary + subject + main verb.",wrong:"Rarely I have visited such a peaceful place.",right:"Rarely have I visited such a peaceful place."},
+      {w:"As far as … is concerned, …",pos:"focusing a topic",topic:"Writing · Speaking",def:"Narrows the discussion to one aspect before judging it.",ex:"As far as cost is concerned, the second option is clearly better.",tip:"Excellent for survey responses where you weigh options criterion by criterion: cost, then convenience, then quality.",wrong:"As far as the price is concern, it is reasonable.",right:"As far as the price is concerned, it is reasonable."},
+      {w:"I would appreciate it if you could …",pos:"polite request",topic:"Writing Task 1",def:"Asks for something in a formal email without sounding demanding.",ex:"I would appreciate it if you could send me the revised invoice by Friday.",tip:"The conditional keeps it courteous. Follow with “could” + base verb — the most reliable formal request frame.",wrong:"I would appreciate if you send the report soon.",right:"I would appreciate it if you could send the report soon."},
+      {w:"On the one hand … on the other hand …",pos:"contrast frame",topic:"Writing · Speaking",def:"Presents two opposing sides in a balanced, organised way.",ex:"On the one hand, living in the city offers endless opportunities. On the other hand, it is expensive and crowded.",tip:"Each hand needs a full developed point, not a fragment. Finish by weighing them — balance alone doesn't score, judgement does.",wrong:"On one hand it is cheap, but in other hand quality is low.",right:"On the one hand, it is cheap. On the other hand, the quality is low."},
+      {w:"As a result of …, …",pos:"cause & effect",topic:"Writing",def:"Introduces the cause before the outcome, in formal register.",ex:"As a result of the funding cuts, the library reduced its opening hours.",tip:"Partners to rotate: due to, owing to, consequently, therefore. Don't stack two in one sentence.",wrong:"As a result of he was late, the meeting started without him.",right:"As a result of his lateness, the meeting started without him. (Noun phrase after “of”.)"},
+      {w:"It would be a good idea to …",pos:"recommendation",topic:"Speaking · Writing",def:"Suggests a course of action in advice and recommendation tasks.",ex:"It would be a good idea to compare prices before signing the contract.",tip:"Softer than “you should” — ideal when advising a friend or manager. Strengthen with a reason clause after it.",wrong:"It will be good idea if you will save money.",right:"It would be a good idea to save money."},
+      {w:"I am writing in response to …",pos:"formal email opener",topic:"Writing Task 1",def:"Opens a reply email by naming what prompted it.",ex:"I am writing in response to your advertisement for the community volunteer program.",tip:"Name the source precisely (your email of May 3, the notice on the bulletin board) — specificity reads as competence.",wrong:"I am writing in response for your letter about vacancy.",right:"I am writing in response to your letter about the vacancy."}
+    ];
+
+    /* ================= GRAMMAR DATA ================= */
+    var MODALS = [
+      ["can / could","Ability; informal permission; polite requests","She can speak three languages. / Could you repeat that, please?","✗ “I can to swim.” → ✓ “I can swim.” (No “to” after modals.)"],
+      ["may / might","Permission (formal); possibility","You may submit the form online. / It might rain this evening, so take an umbrella.","✗ “It may will rain.” → ✓ “It might rain.” (Modal + base verb only.)"],
+      ["must / have to","Strong obligation; logical certainty","You must wear a seatbelt. / The lights are on, so someone must be home.","✗ “You must to stop.” → ✓ “You must stop.”"],
+      ["mustn't vs don't have to","Prohibition vs no obligation — opposite meanings","You mustn't park here. (forbidden) / You don't have to come early. (optional)","✗ Using “mustn't” to mean “not necessary” reverses your meaning — a costly Writing error."],
+      ["should / ought to","Advice; expectation","You should rest before the exam. / The package ought to arrive by Friday.","✗ “You should to rest.” → ✓ “You should rest.”"],
+      ["would","Polite requests/offers; conditionals; past habits","Would you mind opening the window? / When we were kids, we would play outside all day.","✗ “I would to like tea.” → ✓ “I would like tea.”"],
+      ["shall","Formal offers and suggestions (mainly British/Canadian formal)","Shall we begin the meeting? / Shall I book the tickets?","Rare in everyday North American speech — keep it for offers, not future facts."],
+      ["will","Future facts, promises, instant decisions, predictions","The meeting will start at nine. / I'll help you carry that.","✗ \u201cI will call you when I will arrive.\u201d → ✓ \u201cI'll call you when I arrive.\u201d (Present simple after “when”.)"],
+      ["needn't","No necessity","You needn't bring any documents — we have copies.","✗ “You needn't to bring…” → ✓ “You needn't bring…”"],
+      ["be able to","Ability where “can” has no form (future, perfect)","After the course, you will be able to write formal emails confidently.","✗ “I will can do it.” → ✓ “I will be able to do it.” — “can” has no future form."]
+    ];
+
+    var TENSES = [
+      ["Present Simple","subject + base verb (+s for he/she/it)","Habits, facts, schedules","Water boils at 100°C. / The train leaves at 6:40.","✗ “She go to work by bus.” → ✓ “She goes…”"],
+      ["Present Continuous","am/is/are + verb-ing","Actions now; temporary situations; fixed near-future plans","I am preparing for my exam this month. / We are meeting the manager tomorrow.","✗ “I am agree with you.” → ✓ “I agree with you.” (State verbs don't take -ing.)"],
+      ["Present Perfect","have/has + past participle","Past actions with present results; experience; unfinished time","I have lived in Canada for three years. / Have you ever tried poutine?","✗ “I have seen him yesterday.” → ✓ “I saw him yesterday.” (No finished-time words with present perfect.)"],
+      ["Present Perfect Continuous","have/has been + verb-ing","Actions started in the past, still continuing, emphasis on duration","She has been studying since 7 a.m.","✗ “I am working here since 2020.” → ✓ “I have been working here since 2020.”"],
+      ["Past Simple","subject + past form","Completed past actions at a known time","We moved to Houston in 2019.","✗ “Did you went?” → ✓ “Did you go?” (Base verb after “did”.)"],
+      ["Past Continuous","was/were + verb-ing","Action in progress at a past moment; interrupted actions","At midnight, we were still driving. / I was cooking when the phone rang.","✗ “While I was cook…” → ✓ “While I was cooking…”"],
+      ["Past Perfect","had + past participle","The earlier of two past events","When I arrived, the class had already started.","✗ Using past simple twice hides the order: “I arrived, the class started” ≠ the lesson began first."],
+      ["Past Perfect Continuous","had been + verb-ing","Duration before a past moment","He had been waiting for an hour before the bus came.","✗ “He had being waiting…” → ✓ “He had been waiting…”"],
+      ["Future Simple (will)","will + base verb","Predictions, promises, instant decisions","Prices will probably rise next year.","✗ “I will to call you.” → ✓ “I will call you.”"],
+      ["Going to","am/is/are going to + base verb","Plans already decided; predictions from evidence","Look at those clouds — it's going to rain. / We are going to enrol in January.","Mixing will/going to randomly is fine in speech; in Writing, choose deliberately: plans = going to, instant decisions = will."],
+      ["Future Continuous","will be + verb-ing","Action in progress at a future moment","This time tomorrow, I will be flying to Toronto.","✗ “I will be fly…” → ✓ “I will be flying…”"],
+      ["Future Perfect","will have + past participle","Completed before a future deadline","By December, I will have completed the full course.","✗ “By June I will have finish…” → ✓ “…will have finished…” — the band-10 tense for goals and deadlines."]
+    ];
+
+    var CONDITIONALS = [
+      ["Zero","If + present simple, present simple","General truths and facts","If you heat ice, it melts.","✗ “If you will heat ice…” — no “will” in the if-clause."],
+      ["First","If + present simple, will + verb","Real, likely future results","If it rains tomorrow, we will cancel the picnic.","✗ “If it will rain, we cancel.” → ✓ “If it rains, we will cancel.”"],
+      ["Second","If + past simple, would + verb","Imaginary or unlikely present/future","If I had more time, I would volunteer every week.","✗ “If I would have time…” → ✓ “If I had time, I would…”"],
+      ["Third","If + past perfect, would have + participle","Imaginary past; regrets and what-ifs","If we had left earlier, we would have caught the flight.","✗ “If we had left, we would caught…” → ✓ “…we would have caught…”"],
+      ["Mixed","If + past perfect, would + verb","Past condition, present result","If she had saved money (past), she would be debt-free now (present).","The pattern examiners love in reflective Speaking answers about life choices."],
+      ["Alternatives to “if”","unless / provided that / as long as / in case","Unless, provided that, as long as","Unless you study daily, progress will be slow. / Take an umbrella in case it rains.","✗ “Unless you don't study…” — “unless” already means “if not”; never add a second negative."]
+    ];
+
+    var PUNCT = [
+      {h:"Commas in lists and after openers",p:"Separate three or more items, and set off introductory phrases so the reader can breathe.",bad:"After finishing my degree I moved to Canada, and started working.",good:"After finishing my degree, I moved to Canada and started working."},
+      {h:"No comma splices",p:"Two complete sentences cannot be joined by a comma alone — use a full stop, a semicolon, or a conjunction.",bad:"The exam is in December, I am studying every day.",good:"The exam is in December; I am studying every day. / The exam is in December, so I am studying every day."},
+      {h:"Commas with relative clauses",p:"Non-defining clauses (extra information) take commas; defining clauses (essential information) do not.",bad:"My brother, who lives in Toronto, is a nurse. ✓ / The book, that I borrowed, was excellent. ✗",good:"The book that I borrowed was excellent. (Defining — no commas, and “that” is fine.)"},
+      {h:"Apostrophes: possession vs contraction",p:"“Its” = belonging to it; “it's” = it is. Possessive apostrophes go before the s for singular (the student's book), after it for plurals (the students' books).",bad:"The company changed it's policy, and the employees' were unhappy.",good:"The company changed its policy, and the employees were unhappy."},
+      {h:"Semicolons",p:"Join two closely related complete sentences, or separate complex list items. A quiet sign of controlled, mature writing — use one or two per essay, correctly.",bad:"I enjoy reading; and writing.",good:"I enjoy reading; my sister prefers writing."},
+      {h:"Colons",p:"Introduce a list, an explanation or a quotation after a complete sentence.",bad:"The course covers three skills: listening, reading and writing. ✓ — but: My hobbies are: swimming and cycling. ✗",good:"My hobbies are swimming and cycling. (No colon when the list completes the verb directly.)"},
+      {h:"Quotation marks",p:"In Canadian/British style, punctuation tied to the quote stays inside; commas and periods usually sit inside closing quotes in North American publishing. CELPIP accepts consistent North American style.",bad:"She said “I will be late”.",good:"She said, \u201cI will be late.\u201d"},
+      {h:"Capital letters",p:"Days, months, languages, nationalities and proper names are capitalised; seasons and school subjects (except languages) are not.",bad:"I study english on mondays in the Winter.",good:"I study English on Mondays in the winter."}
+    ];
+
+    var COMPLEX = [
+      {h:"Relative clauses — defining",ex:"The course that helped me most was the writing workshop.",p:"Identify which person or thing you mean. Use who (people), which (things), that (both), where (places), whose (possession).",bad:"The teacher which taught me was excellent.",good:"The teacher who taught me was excellent."},
+      {h:"Relative clauses — non-defining",ex:"My instructor, who has twenty years' experience, gave us a strict study plan.",p:"Extra detail between commas. Never use “that” here, and never drop the pronoun.",bad:"Toronto, that is Canada's largest city, attracts many newcomers.",good:"Toronto, which is Canada's largest city, attracts many newcomers."},
+      {h:"Adverb clauses — concession",ex:"Although the tuition was expensive, the course was worth every dollar.",p:"although / even though / whereas / while build balanced arguments. Never pair “although” with “but” in the same sentence.",bad:"Although it was raining, but we went out.",good:"Although it was raining, we went out."},
+      {h:"Adverb clauses — cause, result, purpose",ex:"Since the library extended its hours, students have been using it more. / He saved for years so that he could study abroad.",p:"because / since / as (cause), so / therefore / as a result (result), so that / in order to (purpose). One subordinator per clause — doubling them (“because… so…”) is the classic learner error.",bad:"Because the bus was late, so I missed the interview.",good:"Because the bus was late, I missed the interview."},
+      {h:"Noun clauses",ex:"What surprised me was how friendly the examiners' instructions sounded. / I believe that daily practice matters more than talent.",p:"Clauses acting as subject or object: that…, what…, whether…, question-word clauses. Word order inside stays statement order.",bad:"I don't know where is the library.",good:"I don't know where the library is."},
+      {h:"Participle clauses",ex:"Having finished my degree, I applied for jobs across Canada. / Written in simple language, the guide helps beginners.",p:"Compress two sentences into one elegant structure. The participle's subject must match the main clause's subject.",bad:"Walking to the station, the rain started.",good:"Walking to the station, I got caught in the rain. (The walker must be the subject.)"},
+      {h:"Cleft sentences",ex:"It was the speaking module that worried me most. / What I need is more timed practice.",p:"Rebuild a plain sentence to stress one element — a signature band-10 move in both Writing and Speaking.",bad:"It was yesterday that I have submitted the form.",good:"It was yesterday that I submitted the form."},
+      {h:"Reported speech",ex:"She said that she would send the report the following day.",p:"Shift tenses back (will → would, present → past) and adjust time words (tomorrow → the next day). Essential for retelling conversations in Speaking Task 5.",bad:"He told that he will come tomorrow.",good:"He said that he would come the next day. (“Tell” needs an object: he told me…)"}
+    ];
+
+    /* ================= RENDERING ================= */
+    var BANKS = {
+      vocab:{title:"Vocabulary bank",data:VOCAB,desc:"Band-10 words organised by the topics CELPIP returns to again and again. Learn each word inside its example sentence, not as a bare translation — that is how it survives into your Writing and Speaking.",searchPh:"Search words, meanings, examples…"},
+      phrasal:{title:"Phrasal verbs",data:PHRASAL,desc:"The multi-word verbs that make English sound natural — and that Listening speakers use constantly. Each entry shows the pattern that follows it (gerund? pronoun in the middle?) and the error that gives learners away.",searchPh:"Search phrasal verbs…"},
+      expressions:{title:"Expressions & idioms",data:EXPRESSIONS,desc:"Idioms and fixed expressions add colour and confidence — used sparingly and in the right register. One or two per Speaking answer; almost none in a formal complaint email. The guidance on each card tells you which.",searchPh:"Search expressions…"},
+      collocations:{title:"Collocations",data:COLLOCATIONS,desc:"Words that belong together: make a decision, heavy traffic, strong coffee. Collocation errors are the single most common reason strong students stall below band 10 — the idea is right, the partnership is wrong.",searchPh:"Search collocations…"},
+      patterns:{title:"Sentence patterns",data:PATTERNS,desc:"Ready-made frames for the exact jobs CELPIP sets: opening an opinion, giving advice, weighing options, closing an email. Learn the frame, then pour your own content into it.",searchPh:"Search patterns…"}
+    };
+
+    function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+    function entryCard(e,isPattern){
+      var fix = "";
+      if(e.wrong && e.right){
+        fix = '<div class="fixbox bad"><span class="lbl">Common mistake</span><span><s>'+esc(e.wrong)+'</s></span></div>'
+            + '<div class="fixbox good"><span class="lbl">Say instead</span><span>'+esc(e.right)+'</span></div>';
+      }
+      return '<article class="entry'+(isPattern?' pattern':'')+'">'
+        + '<div class="entry-top"><span class="term">'+esc(e.w)+'</span>'
+        + (isPattern?'<span class="use">'+esc(e.pos)+'</span>':'<span class="pos">'+esc(e.pos)+'</span>')
+        + '<span class="topic-tag">'+esc(e.topic)+'</span></div>'
+        + '<p class="def">'+esc(e.def)+'</p>'
+        + '<p class="ex">'+esc(e.ex)+'</p>'
+        + '<p class="tip">'+esc(e.tip)+'</p>'
+        + fix + '</article>';
+    }
+
+    var filters = {};
+    function renderBank(key){
+      var bank = BANKS[key];
+      var topics = [];
+      bank.data.forEach(function(e){ if(topics.indexOf(e.topic)<0) topics.push(e.topic); });
+      var state = filters[key] || {q:"", topic:"All"};
+      filters[key] = state;
+      var html = '<div class="sec-head"><h2>'+bank.title+' <span class="count-note">'+bank.data.length+' entries</span></h2><p>'+bank.desc+'</p></div>'
+        + '<div class="toolbar"><label class="search"><span aria-hidden="true">⌕</span><input type="search" data-search="'+key+'" placeholder="'+bank.searchPh+'" value="'+esc(state.q)+'"></label></div>'
+        + '<div class="toolbar"><div class="chips" data-chips="'+key+'">'
+        + '<button class="chip'+(state.topic==="All"?" active":"")+'" data-topic="All">All topics</button>'
+        + topics.map(function(t){return '<button class="chip'+(state.topic===t?" active":"")+'" data-topic="'+esc(t)+'">'+esc(t)+'</button>';}).join("")
+        + '</div><span class="count-note" data-count="'+key+'"></span></div>'
+        + '<div class="grid" data-grid="'+key+'"></div>';
+      document.getElementById("panel-"+key).innerHTML = html;
+      paintBank(key);
+    }
+    function paintBank(key){
+      var bank = BANKS[key], state = filters[key];
+      var q = state.q.trim().toLowerCase();
+      var list = bank.data.filter(function(e){
+        if(state.topic!=="All" && e.topic!==state.topic) return false;
+        if(!q) return true;
+        return (e.w+" "+e.def+" "+e.ex+" "+e.topic+" "+e.pos).toLowerCase().indexOf(q)>=0;
+      });
+      var grid = document.querySelector('[data-grid="'+key+'"]');
+      grid.innerHTML = list.length ? list.map(function(e){return entryCard(e, key==="patterns");}).join("")
+        : '<div class="empty">No entries match — try a shorter search or a different topic.</div>';
+      var c = document.querySelector('[data-count="'+key+'"]');
+      if(c) c.textContent = "Showing "+list.length+" of "+bank.data.length;
+    }
+
+    /* ================= GRAMMAR RENDER ================= */
+    function tableHTML(cols, rows){
+      return '<div class="scroll-x"><table class="g-table"><tr>'+cols.map(function(c){return "<th>"+c+"</th>";}).join("")+"</tr>"
+        + rows.map(function(r){return "<tr>"+r.map(function(cell){return "<td>"+cell+"</td>";}).join("")+"</tr>";}).join("")+"</table></div>";
+    }
+    function renderGrammar(){
+      var h = "";
+      h += '<div class="g-block"><h3>Modal verbs</h3><p class="sub">Modals never change form, never take “to”, and are always followed by the base verb. The right modal also controls tone: “must” orders, “should” advises, “could” softens.</p>'
+         + tableHTML(["Modal","Use","Example","Watch out"], MODALS) + "</div>";
+      h += '<div class="g-block"><h3>The twelve tenses</h3><p class="sub">You do not need all twelve in every answer — but band 10 means choosing tenses deliberately: present perfect for experience, past perfect for sequencing a story, future perfect for goals with deadlines.</p>'
+         + tableHTML(["Tense","Form","Use","Example & classic error"], TENSES.map(function(t){return [t[0],'<span class="form">'+t[1]+"</span>",t[2],t[3]+"<br>"+t[4]];})) + "</div>";
+      h += '<div class="g-block"><h3>Conditionals</h3><p class="sub">The four conditionals plus mixed forms cover facts, plans, daydreams and regrets. Golden rule: no “will” or “would” inside the if-clause itself.</p>'
+         + tableHTML(["Type","Pattern","Use","Example & classic error"], CONDITIONALS.map(function(c){return [c[0],'<span class="form">'+c[1]+"</span>",c[2],c[3]+"<br>"+c[4]];})) + "</div>";
+      h += '<div class="g-block"><h3>Punctuation that earns marks</h3><p class="sub">Examiners cannot hear your pauses — punctuation is how written rhythm survives. These eight rules cover nearly every punctuation error in learner writing.</p><div class="rules">'
+         + PUNCT.map(function(r){return '<div class="rule"><h4>'+r.h+'</h4><p>'+r.p+'</p><div class="pair"><span>✗ / ✓ mixed: '+r.bad+'</span><span class="ok-line">✓ '+r.good+'</span></div></div>';}).join("")
+         + "</div></div>";
+      h += '<div class="g-block"><h3>Complex sentences</h3><p class="sub">Range of sentence structure is an explicit scoring criterion. One or two of these structures, used accurately, in every Writing task and Speaking answer moves you toward 10.</p><div class="rules">'
+         + COMPLEX.map(function(r){return '<div class="rule"><h4>'+r.h+'</h4><p>'+r.p+'</p><div class="pair"><span><i>'+r.ex+'</i></span><span>✗ '+r.bad+'</span><span>✓ '+r.good+'</span></div></div>';}).join("")
+         + "</div></div>";
+      document.getElementById("grammarBody").innerHTML = h;
+    }
+
+    /* ================= TABS ================= */
+    var TABS = [
+      ["plan","Study plan",null],
+      ["vocab","Vocabulary",VOCAB.length],
+      ["phrasal","Phrasal verbs",PHRASAL.length],
+      ["expressions","Expressions",EXPRESSIONS.length],
+      ["collocations","Collocations",COLLOCATIONS.length],
+      ["patterns","Sentence patterns",PATTERNS.length],
+      ["grammar","Grammar core",null],
+      ["quiz","Test yourself",null]
+    ];
+    var tabRow = document.getElementById("tabRow");
+    tabRow.innerHTML = TABS.map(function(t){
+      return '<button class="tab" data-tab="'+t[0]+'">'+t[1]+(t[2]?'<span class="n">'+t[2]+"</span>":"")+"</button>";
+    }).join("");
+    function showTab(key){
+      TABS.forEach(function(t){
+        document.getElementById("panel-"+t[0]).classList.toggle("show", t[0]===key);
+      });
+      tabRow.querySelectorAll(".tab").forEach(function(b){ b.classList.toggle("active", b.dataset.tab===key); });
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
+    tabRow.addEventListener("click", function(ev){
+      var b = ev.target.closest("[data-tab]"); if(b) showTab(b.dataset.tab);
+    });
+    document.addEventListener("input", function(ev){
+      var inp = ev.target.closest("[data-search]"); if(!inp) return;
+      var key = inp.dataset.search; filters[key].q = inp.value; paintBank(key);
+    });
+    document.addEventListener("click", function(ev){
+      var chip = ev.target.closest("[data-chips] .chip"); if(!chip) return;
+      var wrap = chip.closest("[data-chips]"), key = wrap.dataset.chips;
+      filters[key].topic = chip.dataset.topic;
+      wrap.querySelectorAll(".chip").forEach(function(c){ c.classList.toggle("active", c===chip); });
+      paintBank(key);
+    });
+
+    /* ================= QUIZ ================= */
+    var ALL = [];
+    VOCAB.forEach(function(e){ALL.push({e:e,kind:"Vocabulary"});});
+    PHRASAL.forEach(function(e){ALL.push({e:e,kind:"Phrasal verb"});});
+    EXPRESSIONS.forEach(function(e){ALL.push({e:e,kind:"Expression"});});
+    COLLOCATIONS.forEach(function(e){ALL.push({e:e,kind:"Collocation"});});
+    function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)), t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+    /* Flashcards */
+    var deck = shuffle(ALL.slice()), di = 0, revealed = false;
+    function paintFlash(){
+      var item = deck[di], e = item.e;
+      var body = revealed
+        ? '<div class="f-def">'+esc(e.def)+'</div><div class="f-ex">“'+esc(e.ex)+'”</div>'
+        : '<div style="color:var(--ink2)">Tap “Reveal” — say the meaning and your own example sentence aloud first.</div>';
+      document.getElementById("flashZone").innerHTML =
+        '<div class="flash"><div class="f-topic">'+item.kind+' · '+esc(e.topic)+' · card '+(di+1)+' of '+deck.length+'</div>'
+        + '<div class="f-term">'+esc(e.w)+'</div>' + body + '</div>'
+        + '<div class="quiz-nav">'
+        + '<button class="btn ghost" id="fPrev">← Previous</button>'
+        + '<button class="btn" id="fReveal">'+(revealed?"Hide":"Reveal meaning")+'</button>'
+        + '<button class="btn ghost" id="fNext">Next →</button>'
+        + '<button class="btn ghost" id="fShuffle">Shuffle deck</button></div>';
+      document.getElementById("fReveal").onclick = function(){ revealed=!revealed; paintFlash(); };
+      document.getElementById("fPrev").onclick = function(){ di=(di-1+deck.length)%deck.length; revealed=false; paintFlash(); };
+      document.getElementById("fNext").onclick = function(){ di=(di+1)%deck.length; revealed=false; paintFlash(); };
+      document.getElementById("fShuffle").onclick = function(){ deck=shuffle(ALL.slice()); di=0; revealed=false; paintFlash(); };
+    }
+
+    /* MCQ */
+    var quiz = null;
+    function buildQuiz(){
+      var pool = shuffle(ALL.slice()).slice(0,10), qs = [];
+      pool.forEach(function(item, idx){
+        var e = item.e, type = idx % 3;
+        if(type===0){
+          var opts = shuffle(ALL.filter(function(x){return x.e!==e;}).slice(0,40)).slice(0,3).map(function(x){return x.e.def;});
+          opts.push(e.def);
+          qs.push({q:'What does “'+e.w+'” mean?', sub:item.kind+' · '+e.topic, opts:shuffle(opts), ans:e.def, why:'Example: '+e.ex});
+        } else if(type===1 && e.ex.toLowerCase().indexOf(e.w.toLowerCase().split(" ")[0])>=0){
+          var blanked = e.ex.replace(new RegExp(e.w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"i"), "________");
+          if(blanked===e.ex) blanked = e.ex.replace(new RegExp(e.w.split(" ")[0],"i"), "________");
+          var opts2 = shuffle(ALL.filter(function(x){return x.e!==e;}).slice(0,40)).slice(0,3).map(function(x){return x.e.w;});
+          opts2.push(e.w);
+          qs.push({q:"Which item completes the sentence?", sub:'“'+blanked+'”', opts:shuffle(opts2), ans:e.w, why:'Full sentence: '+e.ex});
+        } else {
+          var opts3 = shuffle(ALL.filter(function(x){return x.e!==e;}).slice(0,40)).slice(0,3).map(function(x){return x.e.def;});
+          opts3.push(e.def);
+          qs.push({q:'What does “'+e.w+'” mean?', sub:item.kind+' · '+e.topic, opts:shuffle(opts3), ans:e.def, why:'Example: '+e.ex});
+        }
+      });
+      return {qs:qs, i:0, score:0, answered:false};
+    }
+    function paintMcq(){
+      var zone = document.getElementById("mcqZone");
+      if(!quiz){ zone.innerHTML = '<div class="empty">Press “Start quiz” for ten questions drawn from the banks.</div><div class="quiz-nav"><button class="btn" id="qStart">Start quiz</button></div>';
+        document.getElementById("qStart").onclick = function(){ quiz=buildQuiz(); paintMcq(); }; return; }
+      if(quiz.i>=quiz.qs.length){
+        var msg = quiz.score>=9 ? "Band-10 material — this is exactly the standard to hold." :
+                  quiz.score>=7 ? "Strong. Review the misses below in their bank cards, then retry." :
+                  quiz.score>=5 ? "Getting there — spend a session in the banks, then retry." :
+                  "These items need a proper study pass first: work through a bank, use the guidance on each card, then come back.";
+        zone.innerHTML = '<div class="flash"><div class="f-topic">Quiz complete</div><div class="f-term">'+quiz.score+' / '+quiz.qs.length+'</div><div class="f-def">'+msg+'</div></div>'
+          + '<div class="quiz-nav"><button class="btn" id="qAgain">New quiz</button></div>';
+        document.getElementById("qAgain").onclick = function(){ quiz=buildQuiz(); paintMcq(); }; return;
+      }
+      var q = quiz.qs[quiz.i];
+      zone.innerHTML = '<div class="mcq"><div class="q-meta"><span>Question '+(quiz.i+1)+' of '+quiz.qs.length+'</span><span>Score: '+quiz.score+'</span></div>'
+        + '<h3>'+esc(q.q)+'</h3><p class="q-sub">'+esc(q.sub)+'</p>'
+        + '<div class="opts">'+q.opts.map(function(o){return '<button class="opt" data-opt="'+esc(o)+'">'+esc(o)+'</button>';}).join("")+'</div>'
+        + '<div class="feedback" id="qFeed"></div>'
+        + '<div class="quiz-nav" style="justify-content:flex-start"><button class="btn" id="qNext" disabled>'+(quiz.i===quiz.qs.length-1?"See result":"Next question")+'</button></div></div>';
+      zone.querySelectorAll(".opt").forEach(function(btn){
+        btn.onclick = function(){
+          if(quiz.answered) return; quiz.answered = true;
+          var pick = btn.dataset.opt, ok = pick===q.ans;
+          if(ok) quiz.score++;
+          zone.querySelectorAll(".opt").forEach(function(b){
+            b.disabled = true;
+            if(b.dataset.opt===q.ans) b.classList.add("correct");
+            else if(b===btn) b.classList.add("wrongpick");
+          });
+          var f = document.getElementById("qFeed");
+          f.className = "feedback show "+(ok?"good":"bad");
+          f.innerHTML = (ok?"<b>Correct.</b> ":"<b>Not quite.</b> The answer is “"+esc(q.ans)+"”. ")+esc(q.why);
+          document.getElementById("qNext").disabled = false;
+        };
+      });
+      document.getElementById("qNext").onclick = function(){ quiz.i++; quiz.answered=false; paintMcq(); };
+    }
+    document.getElementById("modeFlash").onclick = function(){
+      this.classList.add("active"); document.getElementById("modeMcq").classList.remove("active");
+      document.getElementById("flashZone").style.display=""; document.getElementById("mcqZone").style.display="none";
+    };
+    document.getElementById("modeMcq").onclick = function(){
+      this.classList.add("active"); document.getElementById("modeFlash").classList.remove("active");
+      document.getElementById("flashZone").style.display="none"; document.getElementById("mcqZone").style.display="";
+      paintMcq();
+    };
+
+    /* ================= INIT ================= */
+    Object.keys(BANKS).forEach(renderBank);
+    renderGrammar();
+    paintFlash();
+    showTab("plan");
+    </script>
+  </body>
+</html>
